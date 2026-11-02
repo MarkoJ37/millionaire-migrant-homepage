@@ -200,6 +200,9 @@ ol{margin:0;padding:0;list-style:none}
 .vision-media::after{content:"";position:absolute;inset:0;background:rgba(0,0,0,.58)}
 .vision .wrap{min-height:88svh;align-content:end;padding-block:var(--section) 64px}
 .vision .head{max-width:680px}
+.vision .note,.story .note{font:400 clamp(1.625rem,1.2rem + 1.2vw,2.25rem)/1.15 var(--serif);letter-spacing:-.01em}
+.vision .note{color:var(--gold)}
+.story .note{color:var(--copper)}
 @media (min-width:1024px){.vision .wrap{padding-bottom:96px;align-content:end}}
 
 /* ---------- story: the timeline ---------- */
@@ -228,9 +231,37 @@ ol{margin:0;padding:0;list-style:none}
 .steps li::before{content:counter(step);grid-row:1/3}
 .steps h3{font:inherit;letter-spacing:inherit}
 .steps p{grid-column:2;margin-top:12px;font:400 var(--fs-body)/1.55 var(--sans);letter-spacing:0;max-width:44ch}
-.steps li:nth-child(2){margin-left:6vw}
-.steps li:nth-child(3){margin-left:12vw}
 .steps-cta{margin-top:40px}
+.tread,.riser{display:none}
+@media (prefers-reduced-motion:no-preference){
+  .js .steps-cta{opacity:0;transform:translateY(16px);transition:opacity .25s var(--ease),transform .25s var(--ease)}
+  .js .steps-cta.in{opacity:1;transform:none;transition:opacity .6s var(--ease),transform .6s var(--ease)}
+}
+/* phones and tablets: a drawn staircase. Each step has a tread on top and a riser down its left, joined to the next */
+@media (max-width:1023px){
+  .steps{--s:clamp(20px,6vw,48px);gap:0;margin-top:48px}
+  .steps li{position:relative;padding:24px 0 36px 16px;font-size:1.625rem;column-gap:.3em}
+  .steps li:nth-child(2){margin-left:var(--s)}
+  .steps li:nth-child(3){margin-left:calc(var(--s) * 2);padding-bottom:20px}
+  .tread,.riser{display:block;position:absolute;background:var(--ink)}
+  .tread{top:0;left:0;right:0;height:4px;transform-origin:left}
+  .steps li+li .tread{left:calc(var(--s) * -1)}
+  .riser{top:0;left:0;bottom:0;width:4px;transform-origin:top}
+  .steps-cta{margin-top:32px}
+}
+@media (max-width:1023px) and (prefers-reduced-motion:no-preference){
+  .js .tread{transform:scaleX(0);transition:transform .25s var(--ease)}
+  .js .riser{transform:scaleY(0);transition:transform .2s var(--ease)}
+  .js .steps li::before,.js .steps li h3,.js .steps li p{opacity:0;transform:translateY(16px);transition:opacity .2s var(--ease),transform .2s var(--ease)}
+  .js .steps li.in .tread{transform:none;transition:transform .55s var(--ease)}
+  .js .steps li.in .riser{transform:none;transition:transform .45s var(--ease) .4s}
+  .js .steps li.in::before,.js .steps li.in h3,.js .steps li.in p{opacity:1;transform:none;transition:opacity .6s var(--ease) .3s,transform .6s var(--ease) .3s}
+  .js .steps li.in p{transition-delay:.42s}
+}
+@media (min-width:1024px) and (prefers-reduced-motion:no-preference){
+  .js .steps li{opacity:0;transform:translateY(24px);transition:opacity .25s var(--ease),transform .25s var(--ease)}
+  .js .steps li.in{opacity:1;transform:none;transition:opacity .8s var(--ease),transform .8s var(--ease)}
+}
 @media (max-width:599px){.steps-cta .btn{width:100%}}
 @media (min-width:1024px){
   .steps{gap:56px;margin-top:88px}
@@ -461,12 +492,12 @@ ol{margin:0;padding:0;list-style:none}
       <h2 id="how-title">How we work</h2>
       <p class="lead">We build one plan around you, covering your residency, tax and company structure, and set it out as one clear roadmap.</p>
     </div>
-    <ol class="steps" data-rv>
-      <li><h3>Assess your position</h3><p>We review where you are today and name the risks, gaps and opportunities in your current structure.</p></li>
-      <li><h3>Design your Blueprint</h3><p>We turn your goals into a written plan covering the areas that matter most for you.</p></li>
-      <li><h3>Put the plan into action</h3><p>Our team helps you through each next step and coordinates the specialists your plan needs.</p></li>
+    <ol class="steps">
+      <li><span class="tread" aria-hidden="true"></span><span class="riser" aria-hidden="true"></span><h3>Assess your position</h3><p>We review where you are today and name the risks, gaps and opportunities in your current structure.</p></li>
+      <li><span class="tread" aria-hidden="true"></span><span class="riser" aria-hidden="true"></span><h3>Design your Blueprint</h3><p>We turn your goals into a written plan covering the areas that matter most for you.</p></li>
+      <li><span class="tread" aria-hidden="true"></span><span class="riser" aria-hidden="true"></span><h3>Put the plan into action</h3><p>Our team helps you through each next step and coordinates the specialists your plan needs.</p></li>
     </ol>
-    <p class="steps-cta" data-rv><a class="btn btn-dark" href="#" data-off>Speak to our team <svg class="arw" aria-hidden="true"><use href="#arw"/></svg></a></p>
+    <p class="steps-cta"><a class="btn btn-dark" href="#" data-off>Speak to our team <svg class="arw" aria-hidden="true"><use href="#arw"/></svg></a></p>
   </div>
 </section>
 
@@ -622,6 +653,17 @@ ol{margin:0;padding:0;list-style:none}
       });
     }, { rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
     groups.forEach(function (g) { io.observe(g); });
+  }
+
+  /* stairs: each step arrives as it scrolls in and leaves again when scrolled back above the line; steps already passed stay */
+  if ('IntersectionObserver' in window) {
+    var sio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) {
+        if (en.isIntersecting) en.target.classList.add('in');
+        else if (en.boundingClientRect.top > 0) en.target.classList.remove('in');
+      });
+    }, { rootMargin: '0px 0px -18% 0px', threshold: 0.2 });
+    d.querySelectorAll('.steps li, .steps-cta').forEach(function (el) { sio.observe(el); });
   }
 
   /* timeline: the bar fills and each stop lights as the story scrolls past */
