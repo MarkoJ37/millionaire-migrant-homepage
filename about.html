@@ -134,7 +134,7 @@ h3{font-size:var(--fs-h3);line-height:1.2;letter-spacing:-.005em}
 
 
 /* ---------- the column line: reading text hangs from it on every section ---------- */
-:root{--fs-figure:clamp(5rem,1.6rem + 9.6vw,10rem);--fs-figure-s:clamp(3.25rem,2rem + 4.4vw,6rem)}
+:root{--fs-figure:min(23.5vw,11rem);--fs-figure-s:clamp(3.25rem,2rem + 4.4vw,6rem)}
 ol{margin:0;padding:0;list-style:none}
 .ax{display:grid;gap:20px}
 .note{font-size:var(--fs-lead);line-height:1.3}
@@ -192,7 +192,7 @@ ol{margin:0;padding:0;list-style:none}
 .tile{display:flex;flex-direction:column;justify-content:space-between;gap:28px;padding:20px 16px}
 .tile .fig{font:400 var(--fs-figure-s)/.95 var(--serif);letter-spacing:-.04em}
 .tile .cap{font-size:var(--fs-body);line-height:1.35}
-.tile-1{grid-column:1/-1;background:var(--gold);justify-content:flex-start;gap:10px;min-height:min(56vw,400px)}
+.tile-1{grid-column:1/-1;background:var(--gold);justify-content:flex-start;gap:10px}
 .tile-1 .fig{font-size:var(--fs-figure)}
 .tile-2{background:var(--ink);color:#fff;min-height:min(58vw,320px)}
 .tile-3{background:var(--charcoal);color:#fff;min-height:min(58vw,320px);margin-top:32px}
@@ -200,9 +200,11 @@ ol{margin:0;padding:0;list-style:none}
 @media (min-width:1024px){
   .stat-tiles{grid-template-columns:repeat(12,1fr);gap:8px;margin-top:72px}
   .tile{padding:28px}
-  .tile-1{grid-column:1/7;justify-content:space-between;gap:28px;min-height:clamp(420px,70vh,660px)}
-  .tile-2{grid-column:7/10;margin-top:clamp(70px,14vh,130px);min-height:clamp(280px,44vh,420px)}
-  .tile-3{grid-column:10/13;margin-top:clamp(140px,26vh,240px);min-height:clamp(220px,34vh,320px)}
+  .tile-1{grid-column:1/7;justify-content:space-between;gap:28px;min-height:clamp(320px,42vh,400px)}
+  .tile-1 .fig{font-size:min(11.4vw,11rem)}
+  .tile-1 .cap{font-size:var(--fs-lead)}
+  .tile-2{grid-column:7/10;margin-top:clamp(36px,5vh,48px);min-height:clamp(220px,30vh,280px)}
+  .tile-3{grid-column:10/13;margin-top:clamp(72px,10vh,96px);min-height:clamp(190px,24vh,230px)}
 }
 
 /* ---------- vision: a whole page of the mountain ---------- */
@@ -264,9 +266,13 @@ ol{margin:0;padding:0;list-style:none}
 .ph{overflow:hidden;background:#111;aspect-ratio:1/1}
 .ph img{width:100%;height:100%;object-fit:cover;object-position:50% 15%}
 .team-top{display:grid;gap:40px}
+.team-head{margin-bottom:48px}
+.team-head .lead{max-width:52ch}
 .jeremy-ph{aspect-ratio:4/5}
 .jeremy-ph img{object-position:50% 10%}
+.jeremy-text h3{font-size:var(--fs-h2);line-height:1.08;letter-spacing:-.015em}
 .jeremy-text .bio{font-size:var(--fs-lead);line-height:1.45;max-width:46ch}
+@media (min-width:1024px){.jeremy-text .bio{font-size:var(--fs-h3);line-height:1.35;max-width:40ch}}
 .leads{display:grid;gap:48px;margin-top:56px}
 .others{display:grid;gap:20px;margin-top:40px}
 /* phones: every advisor is the same row, a bio simply follows it */
@@ -276,10 +282,10 @@ ol{margin:0;padding:0;list-style:none}
   .leads{grid-template-columns:1fr 1fr;gap:var(--gap)}
   .others{grid-template-columns:repeat(5,1fr);gap:var(--gap);margin-top:56px}
   .others .card{grid-template-columns:1fr;row-gap:16px;align-items:start}
-  .team-top{grid-template-columns:41fr 59fr;gap:0;grid-template-rows:auto 1fr}
-  .team-top .head{grid-column:2;grid-row:1}
-  .jeremy-ph{grid-column:1;grid-row:1/3;margin-right:32px}
-  .jeremy-text{grid-column:2;grid-row:2;align-self:end;padding-top:24px}
+  .team-head{margin-bottom:72px}
+  .team-top{grid-template-columns:41fr 59fr;gap:0}
+  .jeremy-ph{aspect-ratio:1/1;margin-right:32px}
+  .jeremy-text{align-self:end}
 }
 @media (min-width:1024px){
   .leads{margin-top:88px}
@@ -293,11 +299,12 @@ ol{margin:0;padding:0;list-style:none}
 .final-q{background:var(--gold);padding-block:calc(var(--section) * .8)}
 .final-q h2{font-size:min(13.4vw,7.5rem);line-height:1;letter-spacing:-.035em;text-wrap:initial}
 .q-line{display:block}
-.q-mid{display:grid;gap:24px;justify-items:start;margin-top:40px}
+.q-mid{gap:24px;margin-top:40px}
 .q-mid p{font-size:var(--fs-lead);line-height:1.45;max-width:46ch}
-@media (min-width:1024px){.final-q h2{font-size:min(7.7vw,7.5rem)}}
+@media (min-width:1024px){.final-q h2{font-size:min(8.8vw,8rem);white-space:nowrap}.q-line{display:inline}}
 @media (min-width:1024px){
-  .q-mid{margin-top:72px;margin-left:41%}
+  .q-mid{margin-top:64px;align-items:start;gap:0}
+  .q-mid p{padding-right:48px}
 }
 
 /* ---------- footer ---------- */
@@ -494,11 +501,11 @@ ol{margin:0;padding:0;list-style:none}
 
 <section class="team section" id="team" aria-labelledby="team-title">
   <div class="wrap">
-    <div class="team-top">
-      <div class="head" data-rv>
-        <h2 id="team-title">Meet your expert team</h2>
+    <div class="ax team-head" data-rv>
+      <h2 id="team-title">Meet your expert team</h2>
         <p class="lead">The specialists behind every plan, across global mobility, international planning and cross-border structuring.</p>
-      </div>
+    </div>
+    <div class="team-top">
       <div class="ph jeremy-ph"><img src="https://millionaire-migrant-preview.neil-823.workers.dev/assets/img/48a3f09ac860243f.webp" srcset="https://millionaire-migrant-preview.neil-823.workers.dev/assets/img/ad2a2a1178d47b86.webp 640w, https://millionaire-migrant-preview.neil-823.workers.dev/assets/img/48a3f09ac860243f.webp 1080w" sizes="(min-width:1024px) 38vw, 100vw" width="1080" height="1350" loading="lazy" decoding="async" alt="Jeremy Savory"></div>
       <article class="jeremy-text person" id="p-jeremy" data-rv>
         <h3>Jeremy Savory</h3>
@@ -531,7 +538,7 @@ ol{margin:0;padding:0;list-style:none}
 <section class="final-q" id="start" aria-labelledby="final-title">
   <div class="wrap">
     <h2 id="final-title" data-rv><span class="q-line">Not sure where</span> <span class="q-line">to start?</span></h2>
-    <div class="q-mid" data-rv>
+    <div class="ax q-mid" data-rv>
       <p>Book thirty minutes with Jeremy Savory or a senior advisor. You’ll leave knowing your options and what to do next.</p>
       <div class="btns">
         <a class="btn btn-dark" href="https://millionaire-migrant-preview.neil-823.workers.dev/services/consultancy">Book an Expert Session <svg class="arw" aria-hidden="true"><use href="#arw"/></svg></a>
