@@ -404,11 +404,11 @@ h3{font-size:var(--fs-h3);line-height:1.2;letter-spacing:-.005em}
       <a class="logo" href="index.html" aria-label="Millionaire Migrant home"><svg width="37" height="40" role="img" aria-label="Millionaire Migrant"><use href="#mm-logo"/></svg></a>
       <nav class="nav" aria-label="Main">
         <div class="has-dd">
-          <a class="top" href="#" data-off>Services</a>
+          <a class="top" href="services.html">Services</a>
           <div class="dd"><div class="dd-panel">
-            <a href="#" data-off><b>Blueprint</b><span>We design your whole plan, then help you carry it out.</span></a>
-            <a href="#" data-off><b>Programmes</b><span>One passport, visa, company or bank account.</span></a>
-            <a href="#" data-off><b>Expert Session</b><span>Thirty minutes of senior advice on your situation.</span></a>
+            <a href="services.html#blueprint"><b>Blueprint</b><span>We design your whole plan, then help you carry it out.</span></a>
+            <a href="services.html#expert-session"><b>Expert Session</b><span>Thirty minutes of senior advice on your situation.</span></a>
+            <a href="services.html#individual-services"><b>Programmes</b><span>One passport, visa, company or bank account.</span></a>
           </div></div>
         </div>
         <a class="top" href="about.html">About</a>
@@ -421,11 +421,11 @@ h3{font-size:var(--fs-h3);line-height:1.2;letter-spacing:-.005em}
   </div>
   <nav class="mnav" id="mnav" aria-label="Mobile">
     <ul>
-      <li><a href="#" data-off>Services</a>
+      <li><a href="services.html">Services</a>
         <ul class="sub">
-          <li><a href="#" data-off><b>Blueprint</b><span>We design your whole plan, then help you carry it out.</span></a></li>
-          <li><a href="#" data-off><b>Programmes</b><span>One passport, visa, company or account, delivered by Savory &amp; Partners.</span></a></li>
-          <li><a href="#" data-off><b>Expert Session</b><span>Thirty minutes of senior advice on your situation.</span></a></li>
+          <li><a href="services.html#blueprint"><b>Blueprint</b><span>We design your whole plan, then help you carry it out.</span></a></li>
+          <li><a href="services.html#expert-session"><b>Expert Session</b><span>Thirty minutes of senior advice on your situation.</span></a></li>
+          <li><a href="services.html#individual-services"><b>Programmes</b><span>One passport, visa, company or account, delivered by Savory &amp; Partners.</span></a></li>
         </ul>
       </li>
       <li><a href="about.html">About</a></li>
@@ -761,11 +761,11 @@ h3{font-size:var(--fs-h3);line-height:1.2;letter-spacing:-.005em}
         </ul>
       </div>
       <div>
-        <h4><a href="#" data-off>Services</a></h4>
+        <h4><a href="services.html">Services</a></h4>
         <ul class="links">
-          <li><a href="#" data-off>Blueprint</a></li>
-          <li><a href="#" data-off>Expert Session</a></li>
-          <li><a href="#" data-off>Programmes</a></li>
+          <li><a href="services.html#blueprint">Blueprint</a></li>
+          <li><a href="services.html#expert-session">Expert Session</a></li>
+          <li><a href="services.html#individual-services">Programmes</a></li>
         </ul>
       </div>
       <div>
@@ -802,6 +802,14 @@ h3{font-size:var(--fs-h3);line-height:1.2;letter-spacing:-.005em}
 
   /* proposal preview: links to pages not built yet do nothing */
   d.addEventListener('click', function (e) { if (e.target.closest('a[data-off]')) e.preventDefault(); });
+
+  /* links between this site's own pages carry utm_* */
+  var utmPairs = [];
+  new URLSearchParams(location.search).forEach(function (v, k) { if (/^utm_/i.test(k)) utmPairs.push(k + '=' + encodeURIComponent(v)); });
+  if (utmPairs.length) d.querySelectorAll('a[href*=".html"]').forEach(function (a) {
+    var parts = a.getAttribute('href').split('#');
+    a.setAttribute('href', parts[0] + '?' + utmPairs.join('&') + (parts[1] ? '#' + parts[1] : ''));
+  });
 
   /* header state + mobile menu */
   var head = d.querySelector('.site-head');
