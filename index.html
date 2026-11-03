@@ -134,7 +134,13 @@ h3{font-size:var(--fs-h3);line-height:1.2;letter-spacing:-.005em}
 .mnav .sub b{display:block;font:400 var(--fs-lead)/1.3 var(--serif)}
 .mnav .sub span{display:block;font-size:var(--fs-small);color:var(--muted)}
 .mnav .btns{padding:8px var(--g) 24px}
-.mnav .btns .btn{width:100%}
+.mnav .btns a.btn{display:inline-flex;width:100%;padding:14px 24px}
+.m-dd-btn{display:flex;align-items:center;justify-content:space-between;width:100%;min-height:48px;padding:12px 0;background:none;border:0;color:inherit;font:inherit;font-size:var(--fs-body);text-align:left;cursor:pointer}
+.pm-s{position:relative;width:14px;height:14px}
+.pm-s::before,.pm-s::after{content:"";position:absolute;left:0;right:0;top:6px;height:2px;background:var(--ink);transition:transform .25s var(--ease)}
+.pm-s::after{transform:rotate(90deg)}
+.m-dd-btn[aria-expanded="true"] .pm-s::after{transform:rotate(0)}
+.has-dd.open .dd{display:block}
 @media (min-width:1024px){
   .nav,.head-cta{display:flex}
   .burger,.mnav{display:none!important}
@@ -406,9 +412,9 @@ h3{font-size:var(--fs-h3);line-height:1.2;letter-spacing:-.005em}
         <div class="has-dd">
           <a class="top" href="services.html">Services</a>
           <div class="dd"><div class="dd-panel">
-            <a href="services.html#blueprint"><b>Blueprint</b><span>We design your whole plan, then help you carry it out.</span></a>
-            <a href="services.html#expert-session"><b>Expert Session</b><span>Thirty minutes of senior advice on your situation.</span></a>
-            <a href="services.html#individual-services"><b>Programmes</b><span>One passport, visa, company or bank account.</span></a>
+            <a href="services/blueprint.html"><b>Blueprint</b><span>We design your whole plan, then help you carry it out.</span></a>
+            <a href="#" data-off><b>Programmes</b><span>One passport, visa, company or bank account.</span></a>
+            <a href="#" data-off><b>Expert Session</b><span>Thirty minutes of senior advice on your situation.</span></a>
           </div></div>
         </div>
         <a class="top" href="about.html">About</a>
@@ -421,11 +427,12 @@ h3{font-size:var(--fs-h3);line-height:1.2;letter-spacing:-.005em}
   </div>
   <nav class="mnav" id="mnav" aria-label="Mobile">
     <ul>
-      <li><a href="services.html">Services</a>
-        <ul class="sub">
-          <li><a href="services.html#blueprint"><b>Blueprint</b><span>We design your whole plan, then help you carry it out.</span></a></li>
-          <li><a href="services.html#expert-session"><b>Expert Session</b><span>Thirty minutes of senior advice on your situation.</span></a></li>
-          <li><a href="services.html#individual-services"><b>Programmes</b><span>One passport, visa, company or account, delivered by Savory &amp; Partners.</span></a></li>
+      <li class="m-dd">
+        <button class="m-dd-btn" type="button" aria-expanded="false" aria-controls="m-sub">Services<span class="pm-s" aria-hidden="true"></span></button>
+        <ul class="sub" id="m-sub" hidden>
+          <li><a href="services/blueprint.html"><b>Blueprint</b><span>We design your whole plan, then help you carry it out.</span></a></li>
+          <li><a href="#" data-off><b>Programmes</b><span>One passport, visa, company or bank account.</span></a></li>
+          <li><a href="#" data-off><b>Expert Session</b><span>Thirty minutes of senior advice on your situation.</span></a></li>
         </ul>
       </li>
       <li><a href="about.html">About</a></li>
@@ -479,7 +486,7 @@ h3{font-size:var(--fs-h3);line-height:1.2;letter-spacing:-.005em}
             <li>A written Blueprint you keep, with every step in order</li>
             <li>Implementation support and introductions to our banks, lawyers and accountants</li>
           </ul>
-          <a class="btn btn-dark" href="#" data-off>See the Blueprint <svg class="arw" aria-hidden="true"><use href="#arw"/></svg></a>
+          <a class="btn btn-dark" href="services/blueprint.html">See the Blueprint <svg class="arw" aria-hidden="true"><use href="#arw"/></svg></a>
         </div>
         <img class="ghost" src="https://millionaire-migrant-preview.neil-823.workers.dev/assets/img/6f161820ce478564.webp" width="300" height="300" alt="" loading="lazy" decoding="async">
       </article>
@@ -538,7 +545,7 @@ h3{font-size:var(--fs-h3);line-height:1.2;letter-spacing:-.005em}
       <div><dt>Investments</dt><dd>Early-stage opportunities in high-growth markets, matched to your risk profile and to the rest of your plan.</dd></div>
     </dl>
     <div class="cta-row" data-rv>
-      <a class="btn btn-dark" href="#" data-off>See the Blueprint <svg class="arw" aria-hidden="true"><use href="#arw"/></svg></a>
+      <a class="btn btn-dark" href="services/blueprint.html">See the Blueprint <svg class="arw" aria-hidden="true"><use href="#arw"/></svg></a>
     </div>
   </div>
 </section>
@@ -763,9 +770,9 @@ h3{font-size:var(--fs-h3);line-height:1.2;letter-spacing:-.005em}
       <div>
         <h4><a href="services.html">Services</a></h4>
         <ul class="links">
-          <li><a href="services.html#blueprint">Blueprint</a></li>
-          <li><a href="services.html#expert-session">Expert Session</a></li>
-          <li><a href="services.html#individual-services">Programmes</a></li>
+          <li><a href="services/blueprint.html">Blueprint</a></li>
+          <li><a href="#" data-off>Expert Session</a></li>
+          <li><a href="#" data-off>Programmes</a></li>
         </ul>
       </div>
       <div>
@@ -821,8 +828,23 @@ h3{font-size:var(--fs-h3);line-height:1.2;letter-spacing:-.005em}
     mnav.classList.toggle('open', open);
   }
   burger.addEventListener('click', function () { setMenu(burger.getAttribute('aria-expanded') !== 'true'); });
-  mnav.addEventListener('click', function (e) { if (e.target.closest('a')) setMenu(false); });
+  mnav.addEventListener('click', function (e) { if (e.target.closest('a:not([data-off])')) setMenu(false); });
   d.addEventListener('keydown', function (e) { if (e.key === 'Escape') setMenu(false); });
+
+  /* Services dropdown: tap to open in the phone menu; first tap opens it on touch screens with the full header */
+  var mBtn = d.querySelector('.m-dd-btn');
+  if (mBtn) mBtn.addEventListener('click', function () {
+    var open = mBtn.getAttribute('aria-expanded') !== 'true';
+    mBtn.setAttribute('aria-expanded', String(open));
+    d.getElementById('m-sub').hidden = !open;
+  });
+  var hasDd = d.querySelector('.has-dd');
+  if (hasDd) {
+    hasDd.querySelector('a.top').addEventListener('click', function (e) {
+      if (matchMedia('(hover: none)').matches && !hasDd.classList.contains('open')) { e.preventDefault(); hasDd.classList.add('open'); }
+    });
+    d.addEventListener('click', function (e) { if (!e.target.closest('.has-dd')) hasDd.classList.remove('open'); });
+  }
 
   /* entrances: the parts of each block rise in turn, once */
   if ('IntersectionObserver' in window) {
