@@ -130,6 +130,7 @@ h3{font-size:var(--fs-h3);line-height:1.2;letter-spacing:-.005em}
 .pm-s::after{transform:rotate(90deg)}
 .m-dd-btn[aria-expanded="true"] .pm-s::after{transform:rotate(0)}
 .has-dd.open .dd{display:block}
+.mnav ul[hidden]{display:none}
 @media (min-width:1024px){
   .nav,.head-cta{display:flex}
   .burger,.mnav{display:none!important}
@@ -218,16 +219,19 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
 .get-board{display:grid;margin-top:48px}
 .get-item h3{font-size:var(--fs-h3);line-height:1.2}
 .get-item p{margin-top:10px;max-width:46ch}
-.get-a{display:grid;gap:32px;padding:32px 20px;background:var(--ink);color:#fff}
+.get-a{display:grid;background:var(--ink);color:#fff}
+.get-portrait{position:relative;overflow:hidden;aspect-ratio:4/3;background:#000}
+.get-portrait img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:50% 14%}
+.get-list{display:grid;gap:32px;padding:32px 20px}
 .get-a .get-item p{color:var(--on-dark-muted)}
-.get-jeremy{display:grid;grid-template-columns:96px 1fr;gap:18px;align-items:start}
-.get-jeremy img{width:96px;height:96px;object-fit:cover;object-position:50% 15%}
 .get-b{display:grid;background:var(--grey)}
 .get-pic{aspect-ratio:3/2;overflow:hidden}
 .get-docs{display:grid;gap:32px;padding:32px 20px;align-content:center}
 .get-c{display:grid;gap:32px;padding:32px 20px;background:var(--gold)}
 @media (min-width:768px){
-  .get-a{grid-template-columns:1fr 1fr;gap:48px var(--gap);padding:48px 40px}
+  .get-a{grid-template-columns:1fr 2fr}
+  .get-portrait{aspect-ratio:auto}
+  .get-list{grid-template-columns:1fr 1fr;align-content:start;gap:48px var(--gap);padding:48px 40px}
   .get-b{grid-template-columns:1fr 1fr}
   .get-pic{aspect-ratio:auto;min-height:100%}
   .get-docs,.get-c{padding:48px 40px}
@@ -279,16 +283,39 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
   .form-left{padding-right:48px}
 }
 
-/* ---------- case studies ---------- */
-.cases{display:grid;gap:56px;margin-top:48px}
-.cs{position:relative;padding-top:24px;align-self:start}
-.cs::before{content:"";position:absolute;left:0;right:0;top:0;height:4px;background:var(--ink)}
+/* ---------- case studies: one at a time; swipe or arrows, and its parts arrive as it does ---------- */
+.cases{display:grid;grid-auto-flow:column;grid-auto-columns:calc(100% - 20px);gap:8px;margin-top:48px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;overscroll-behavior-x:contain;scrollbar-width:none}
+.cases::-webkit-scrollbar{display:none}
+.cs{scroll-snap-align:start;display:grid;align-content:start;gap:28px;padding:28px 20px 32px;background:var(--grey)}
 .cs h3{font-size:var(--fs-h3);line-height:1.2}
-.cs>p{margin-top:14px;max-width:56ch}
-.cs dl{display:grid;gap:22px;margin:28px 0 0}
+.cs-head p{margin-top:14px;max-width:44ch}
+.cs dl{display:grid;gap:22px;margin:0}
 .cs dt{font:400 var(--fs-lead)/1.2 var(--serif);color:#7d523c}
-.cs dd{margin-top:6px;max-width:56ch}
-@media (min-width:1024px){.cases{grid-template-columns:1fr 1fr;gap:var(--gap);margin-top:72px}}
+.cs dd{margin:6px 0 0;max-width:60ch}
+.cs-nav{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:20px}
+.cs-bars{display:grid;grid-template-columns:1fr 1fr;gap:6px;flex:1;max-width:220px}
+.cs-bars span{height:6px;background:rgba(5,5,5,.14);transition:background-color .3s}
+.cs-bars span.on{background:var(--ink)}
+.cs-arrows{display:flex;gap:8px}
+.cs-arrows button{display:grid;place-items:center;width:48px;height:48px;border:0;border-radius:50%;background:var(--ink);color:#fff;cursor:pointer;transition:background-color .2s,opacity .2s,transform .15s}
+.cs-arrows button:hover{background:var(--charcoal)}
+.cs-arrows button:active{transform:scale(.95)}
+.cs-arrows button:disabled{opacity:.25;cursor:default}
+.cs-arrows .back svg{transform:rotate(180deg)}
+.cs-arrows svg{width:20px;height:20px}
+@media (min-width:768px){.cases{grid-auto-columns:100%;gap:16px}.cs{padding:40px}}
+@media (min-width:1024px){
+  .cases{margin-top:72px}
+  .cs{grid-template-columns:41fr 59fr;gap:0;padding:56px 48px;align-content:stretch}
+  .cs-head{padding-right:48px}
+}
+@media (prefers-reduced-motion:no-preference){
+  .js .cs-head,.js .cs dl>div{opacity:0;transform:translateX(32px);transition:opacity .25s var(--ease),transform .25s var(--ease)}
+  .js .cs.in .cs-head,.js .cs.in dl>div{opacity:1;transform:none;transition:opacity .7s var(--ease),transform .7s var(--ease)}
+  .js .cs.in dl>div:nth-child(1){transition-delay:.12s}
+  .js .cs.in dl>div:nth-child(2){transition-delay:.22s}
+  .js .cs.in dl>div:nth-child(3){transition-delay:.32s}
+}
 
 /* ---------- FAQ: the homepage's accordion ---------- */
 .faq{background:var(--grey)}
@@ -396,8 +423,8 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
           <a class="top" href="../services.html" aria-current="page">Services</a>
           <div class="dd"><div class="dd-panel">
             <a href="blueprint.html"><b>Blueprint</b><span>We design your whole plan, then help you carry it out.</span></a>
-            <a href="#" data-off><b>Programmes</b><span>One passport, visa, company or bank account.</span></a>
-            <a href="#" data-off><b>Expert Session</b><span>Thirty minutes of senior advice on your situation.</span></a>
+            <a href="programmes.html"><b>Programmes</b><span>One passport, visa, company or bank account.</span></a>
+            <a href="consultancy.html"><b>Expert Session</b><span>Thirty minutes of senior advice on your situation.</span></a>
           </div></div>
         </div>
         <a class="top" href="../about.html">About</a>
@@ -414,8 +441,8 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
         <button class="m-dd-btn" type="button" aria-expanded="false" aria-controls="m-sub">Services<span class="pm-s" aria-hidden="true"></span></button>
         <ul class="sub" id="m-sub" hidden>
           <li><a href="blueprint.html"><b>Blueprint</b><span>We design your whole plan, then help you carry it out.</span></a></li>
-          <li><a href="#" data-off><b>Programmes</b><span>One passport, visa, company or bank account.</span></a></li>
-          <li><a href="#" data-off><b>Expert Session</b><span>Thirty minutes of senior advice on your situation.</span></a></li>
+          <li><a href="programmes.html"><b>Programmes</b><span>One passport, visa, company or bank account.</span></a></li>
+          <li><a href="consultancy.html"><b>Expert Session</b><span>Thirty minutes of senior advice on your situation.</span></a></li>
         </ul>
       </li>
       <li><a href="../about.html">About</a></li>
@@ -499,10 +526,13 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
     </div>
     <div class="get-board">
       <div class="get-a" data-rv>
+        <div class="get-portrait"><img src="https://millionaire-migrant-preview.neil-823.workers.dev/assets/img/48a3f09ac860243f.webp" width="1080" height="1350" loading="lazy" decoding="async" alt="Jeremy Savory"></div>
+        <div class="get-list">
         <div class="get-item"><h3>Advisory calls</h3><p>Scheduled calls with your advisory team to walk through your Blueprint, answer questions and agree next steps as you work through your plan.</p></div>
         <div class="get-item"><h3>Senior team access</h3><p>Input from senior advisors, beyond your main contact, on the more complex or higher-stakes parts of your plan.</p></div>
-        <div class="get-item get-jeremy"><img src="https://millionaire-migrant-preview.neil-823.workers.dev/assets/img/ad2a2a1178d47b86.webp" width="640" height="640" loading="lazy" decoding="async" alt="Jeremy Savory"><div><h3>A session with Jeremy Savory</h3><p>A private one-to-one session with our CEO on your strategy.</p></div></div>
+        <div class="get-item"><h3>A session with Jeremy Savory</h3><p>A private one-to-one session with our CEO on your strategy.</p></div>
         <div class="get-item"><h3>A direct line to your team</h3><p>A dedicated line to your advisory team between calls, for quick questions and updates.</p></div>
+        </div>
       </div>
       <div class="get-b" data-rv>
         <div class="get-pic"><img src="https://cdn.sanity.io/images/hxxe4r0k/production/ff5e82b78ffa05761ac30232c9b3fe43e6ed3219-6000x4000.png?w=800&amp;q=70&amp;fit=max&amp;fm=webp" width="800" height="533" loading="lazy" decoding="async" alt="Hands resting on a table with a Millionaire Migrant folder and box"></div>
@@ -535,7 +565,7 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
         </div>
         <label>Email *<input type="email" name="email" autocomplete="email" placeholder="you@example.com" required></label>
         <label>Phone, with country code *<input type="tel" name="phone" autocomplete="tel" placeholder="+44 7700 900000" required></label>
-        <div class="f-nav"><button class="btn btn-dark f-next" type="button">[COPY NEEDED] <svg class="arw" aria-hidden="true"><use href="#arw"/></svg></button></div>
+        <div class="f-nav"><button class="btn btn-dark f-next" type="button">Next <svg class="arw" aria-hidden="true"><use href="#arw"/></svg></button></div>
       </fieldset>
       <fieldset class="f-step" data-step="2">
         <div class="f-row">
@@ -577,7 +607,7 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
         </label>
         <label>Anything we should know?<textarea name="notes" rows="4" placeholder="Where you live now, where you’re thinking of going, and who is moving with you."></textarea></label>
         <div class="f-nav">
-          <button class="btn btn-plain f-back" type="button">[COPY NEEDED]</button>
+          <button class="btn btn-plain f-back" type="button">Back</button>
           <button class="btn btn-dark f-send" type="button" data-off>Send and book a call <svg class="arw" aria-hidden="true"><use href="#arw"/></svg></button>
         </div>
       </fieldset>
@@ -591,25 +621,30 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
       <h2 id="cases-title">Case studies</h2>
       <p class="lead">Two clients, two starting points. Behind both, a team with a combined 90 years of experience across more than 20 jurisdictions.</p>
     </div>
-    <div class="cases">
-      <article class="cs" data-rv>
-        <h3>How One Canadian Family Built Their Global Plan B</h3>
-        <p>A Canadian entrepreneur in his late 30s came to Millionaire Migrant with one goal: more freedom and security for his family.</p>
+    <div class="cases" id="cases" role="region" aria-label="Case studies" tabindex="0">
+      <article class="cs">
+        <div class="cs-head"><h3>How One Canadian Family Built Their Global Plan B</h3><p>A Canadian entrepreneur in his late 30s came to Millionaire Migrant with one goal: more freedom and security for his family.</p></div>
         <dl>
           <div><dt>The challenge:</dt><dd>The family wanted more flexibility, stronger asset protection and a future that wasn’t tied to a single country.</dd></div>
           <div><dt>The strategy:</dt><dd>We built a plan across several countries that separated their residency, citizenship, banking and asset structures. It combined private banking, international investment opportunities and a European Golden Visa route, giving the family more flexibility while supporting long-term growth.</dd></div>
           <div><dt>The outcome:</dt><dd>Today the family has more control over where they live, how they invest and the opportunities open to the next generation. What began as a wish for lower taxes became a complete global Plan B.</dd></div>
         </dl>
       </article>
-      <article class="cs" data-rv>
-        <h3>How One Australian Entrepreneur Restructured His Global Tax Position</h3>
-        <p>An Australian entrepreneur came to Millionaire Migrant for a more tax-efficient international base, without disrupting the business and investments he had already built.</p>
+      <article class="cs">
+        <div class="cs-head"><h3>How One Australian Entrepreneur Restructured His Global Tax Position</h3><p>An Australian entrepreneur came to Millionaire Migrant for a more tax-efficient international base, without disrupting the business and investments he had already built.</p></div>
         <dl>
           <div><dt>The challenge:</dt><dd>His business was anchored in Australia, so his tax exposure stayed tied to one system wherever he chose to live.</dd></div>
           <div><dt>The strategy:</dt><dd>With direct input from Jeremy Savory and our senior advisory team, we built one plan across relocation, tax residency, company structure and asset protection. We guided his move to UAE tax residency, set up a new foreign tax-free business entity and moved his investments into an offshore trust. For the first time, his personal, operating and investment structures were separate.</dd></div>
           <div><dt>The outcome:</dt><dd>Today he is tax resident in the UAE, operates through a Hong Kong entity and holds his investments through an offshore trust. Through six months of concierge support after implementation, our team coordinated the move, supported him through it and made sure every part of the new structure was in place.</dd></div>
         </dl>
       </article>
+    </div>
+    <div class="cs-nav">
+      <div class="cs-bars" aria-hidden="true"><span class="on"></span><span></span></div>
+      <div class="cs-arrows">
+        <button class="back" type="button" aria-label="Previous" aria-controls="cases"><svg aria-hidden="true"><use href="#arw"/></svg></button>
+        <button class="fwd" type="button" aria-label="Next" aria-controls="cases"><svg aria-hidden="true"><use href="#arw"/></svg></button>
+      </div>
     </div>
   </div>
 </section>
@@ -636,7 +671,7 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
     <div class="ax q-mid" data-rv>
       <p>Book a 30-minute Expert Session for $250. You’ll get an honest read on your situation and clear next steps, whatever you decide to do afterwards.</p>
       <div class="btns">
-        <a class="btn btn-dark" href="#" data-off data-dest="https://millionaire-migrant-preview.neil-823.workers.dev/services/consultancy">Book an Expert Session <svg class="arw" aria-hidden="true"><use href="#arw"/></svg></a>
+        <a class="btn btn-dark" href="consultancy.html">Book an Expert Session <svg class="arw" aria-hidden="true"><use href="#arw"/></svg></a>
       </div>
     </div>
   </div>
@@ -674,8 +709,8 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
         <h4><a href="../services.html">Services</a></h4>
         <ul class="links">
           <li><a href="blueprint.html">Blueprint</a></li>
-          <li><a href="#" data-off>Expert Session</a></li>
-          <li><a href="#" data-off>Programmes</a></li>
+          <li><a href="consultancy.html">Expert Session</a></li>
+          <li><a href="programmes.html">Programmes</a></li>
         </ul>
       </div>
       <div>
@@ -764,7 +799,7 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
     root.classList.add('js');
     var groups = d.querySelectorAll('[data-rv]');
     groups.forEach(function (g) {
-      var parts = g.matches('h2, .bp-form, .cs, .get-a, .get-b, .get-c') ? [g] : Array.prototype.slice.call(g.children);
+      var parts = g.matches('h2, .bp-form, .get-a, .get-b, .get-c') ? [g] : Array.prototype.slice.call(g.children);
       if (!parts.length) parts = [g];
       parts.forEach(function (el, i) { el.classList.add('rv'); el.style.setProperty('--d', Math.min(i, 6) * 80 + 'ms'); });
       g._parts = parts;
@@ -794,6 +829,30 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
     addEventListener('scroll', function () { cancelAnimationFrame(paint.f); paint.f = requestAnimationFrame(paint); }, { passive: true });
     addEventListener('resize', paint);
     paint();
+  }
+
+  /* case studies: arrows and swipe move one case; each case's parts arrive and leave with it */
+  var row = d.getElementById('cases');
+  var cases = row.querySelectorAll('.cs'), csBars = d.querySelectorAll('.cs-bars span');
+  var csBack = d.querySelector('.cs-arrows .back'), csFwd = d.querySelector('.cs-arrows .fwd');
+  var csStep = function () { return cases[1].offsetLeft - cases[0].offsetLeft; };
+  var csSync = function () {
+    var i = Math.round(row.scrollLeft / csStep());
+    csBars.forEach(function (b, n) { b.classList.toggle('on', n === i); });
+    csBack.disabled = i === 0;
+    csFwd.disabled = i === cases.length - 1;
+  };
+  var csGo = function (dir) { row.scrollBy({ left: dir * csStep(), behavior: reduce ? 'auto' : 'smooth' }); };
+  csBack.addEventListener('click', function () { csGo(-1); });
+  csFwd.addEventListener('click', function () { csGo(1); });
+  row.addEventListener('scroll', function () { cancelAnimationFrame(csSync.f); csSync.f = requestAnimationFrame(csSync); }, { passive: true });
+  addEventListener('resize', csSync);
+  csSync();
+  if ('IntersectionObserver' in window) {
+    var cio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { en.target.classList.toggle('in', en.isIntersecting); });
+    }, { root: row, threshold: 0.6 });
+    cases.forEach(function (c) { cio.observe(c); });
   }
 
   /* form: hidden utm fields from the URL; two steps; sending stays off until it is connected */
