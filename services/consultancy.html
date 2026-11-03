@@ -389,6 +389,26 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
   .hero-media img{animation:none}
   .offer:hover,.jeremy-grid:hover .portrait img{transform:none}
 }
+
+/* ---------- review fixes ---------- */
+.stack{display:grid;gap:20px}
+.stack h2{font-size:clamp(2.5rem,6.6vw,6rem);line-height:1.02;letter-spacing:-.03em}
+.stack .lead{max-width:60ch}
+.wa-float{transition:transform .25s var(--ease),opacity .25s var(--ease)}
+.wa-float.away{opacity:0;pointer-events:none;transform:scale(.8)}
+@media (max-width:767px){.wa-float{width:48px;height:48px}.wa-float svg{width:24px;height:24px}}
+
+.hero-text{grid-template-rows:none;align-content:end;padding-block:96px 64px}
+.stand{align-self:auto;margin-top:40px}
+.hero-text .lead{align-self:auto;margin-top:0;max-width:52ch}
+@media (min-width:1024px){.hero-lead{grid-column:1/-1}}
+
+.jeremy-text{justify-items:stretch;align-content:start}
+.jeremy-text .bio{margin-top:0}
+@media (max-width:1023px){.jeremy-text .bio{margin-top:8px}}
+@media (min-width:1024px){.jeremy-text .bio{font-size:var(--fs-lead)}}
+.hero-text{padding-block:96px}
+.mast-media::after{background:linear-gradient(180deg,rgba(0,0,0,.35) 0%,rgba(0,0,0,.55) 45%,rgba(0,0,0,.92) 100%)} /* taste-skill-ignore: neutral scrim, the hall is busy behind the heading */
 </style>
 </head>
 <body>
@@ -446,8 +466,7 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
 
 <section class="mast" aria-labelledby="es-title">
   <div class="mast-media">
-    <img src="https://image.mux.com/mTqYb8RCeTVdlMsVwOS1YdGIKKWBeW3wWJGkzp2X45Q/thumbnail.webp?width=800&amp;time=2" srcset="https://image.mux.com/mTqYb8RCeTVdlMsVwOS1YdGIKKWBeW3wWJGkzp2X45Q/thumbnail.webp?width=800&amp;time=2 800w, https://image.mux.com/mTqYb8RCeTVdlMsVwOS1YdGIKKWBeW3wWJGkzp2X45Q/thumbnail.webp?width=1280&amp;time=2 1280w" sizes="100vw" width="1280" height="720" alt="" fetchpriority="high" decoding="async">
-    <video muted loop playsinline preload="none" aria-hidden="true" data-mux="mTqYb8RCeTVdlMsVwOS1YdGIKKWBeW3wWJGkzp2X45Q"></video>
+    <img src="https://cdn.sanity.io/images/hxxe4r0k/production/ae1854c65504d36b999e0b26b9ec07c380b80108-2670x1780.png?rect=230,0,2440,1500&amp;w=1280&amp;q=70&amp;fit=max&amp;fm=webp" srcset="https://cdn.sanity.io/images/hxxe4r0k/production/ae1854c65504d36b999e0b26b9ec07c380b80108-2670x1780.png?rect=230,0,2440,1500&amp;w=800&amp;q=70&amp;fit=max&amp;fm=webp 800w, https://cdn.sanity.io/images/hxxe4r0k/production/ae1854c65504d36b999e0b26b9ec07c380b80108-2670x1780.png?rect=230,0,2440,1500&amp;w=1280&amp;q=70&amp;fit=max&amp;fm=webp 1280w, https://cdn.sanity.io/images/hxxe4r0k/production/ae1854c65504d36b999e0b26b9ec07c380b80108-2670x1780.png?rect=230,0,2440,1500&amp;w=1900&amp;q=68&amp;fit=max&amp;fm=webp 1900w" sizes="100vw" width="1280" height="720" alt="" fetchpriority="high" decoding="async">
   </div>
   <div class="wrap hero-text">
     <h1 id="es-title"><span class="line"><span>Private Expert</span></span> <span class="line"><span>Session</span></span></h1>
@@ -460,7 +479,7 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
     <h2 id="call-title">What you get from the call</h2>
     <div class="call-text">
       <p class="lead">Every situation is different, and not every question fits a service description. In thirty minutes, an expert listens to your circumstances and points you to the right path, before you commit to anything.</p>
-      <a class="btn btn-dark" href="#form">Speak with an expert <svg class="arw" aria-hidden="true"><use href="#arw"/></svg></a>
+      <a class="btn btn-dark" href="#form">Book an Expert Session <svg class="arw" aria-hidden="true"><use href="#arw"/></svg></a>
     </div>
   </div>
 </section>
@@ -486,19 +505,17 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
 
 <section class="team section" id="team" aria-labelledby="team-title">
   <div class="wrap">
-    <div class="ax team-head" data-rv>
+    <div class="stack team-head" data-rv>
       <h2 id="team-title">Meet your expert team</h2>
       <p class="lead">Decades of cross-border experience across residency, tax and global structure. These are the specialists who will look at your situation and help you decide your next move.</p>
     </div>
-    <div class="team-top">
-      <div class="ph jeremy-ph"><img src="https://millionaire-migrant-preview.neil-823.workers.dev/assets/img/48a3f09ac860243f.webp" srcset="https://millionaire-migrant-preview.neil-823.workers.dev/assets/img/ad2a2a1178d47b86.webp 640w, https://millionaire-migrant-preview.neil-823.workers.dev/assets/img/48a3f09ac860243f.webp 1080w" sizes="(min-width:768px) 40vw, 100vw" width="1080" height="1350" loading="lazy" decoding="async" alt="Jeremy Savory"></div>
-      <article class="jeremy-text" data-rv>
-        <h3>Jeremy Savory</h3>
-        <p class="role">CEO &amp; Founder</p>
+    <article class="ax jeremy-text" data-rv>
+      <div><h3>Jeremy Savory</h3><p class="role">CEO &amp; Founder</p></div>
+      <div>
         <p class="bio">Jeremy founded Millionaire Migrant. Over the past 20 years he has travelled to more than 100 countries, secured multiple citizenships and residencies, and built a multi-government-accredited firm that has helped 11,000+ clients with second passports and residency.</p>
-        <a class="btn btn-light" href="#form" data-pick="Jeremy Savory">Book a one-to-one session <svg class="arw" aria-hidden="true"><use href="#arw"/></svg></a>
-      </article>
-    </div>
+        <a class="btn btn-light" href="#form" data-pick="Jeremy Savory">Book an Expert Session <svg class="arw" aria-hidden="true"><use href="#arw"/></svg></a>
+      </div>
+    </article>
     <div class="others" data-rv>
       <article class="card"><div class="ph"><img src="https://millionaire-migrant-preview.neil-823.workers.dev/assets/img/69e6f637ab8e532e.webp" width="640" height="640" loading="lazy" decoding="async" alt="Irena Prgomet"></div><div><h3>Irena Prgomet</h3><p class="role">Lead Advisor – International Planning</p></div></article>
       <article class="card"><div class="ph"><img src="https://millionaire-migrant-preview.neil-823.workers.dev/assets/img/5369365adb0f6146.webp" width="640" height="640" loading="lazy" decoding="async" alt="Placid Ndi"></div><div><h3>Placid Ndi</h3><p class="role">Lead Advisor – Residency &amp; Citizenship</p></div></article>
@@ -506,7 +523,7 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
       <article class="card"><div class="ph"><img src="https://millionaire-migrant-preview.neil-823.workers.dev/assets/img/7fdac3fab9570635.webp" width="640" height="640" loading="lazy" decoding="async" alt="Luke Coupe"></div><div><h3>Luke Coupe</h3><p class="role">Wealth Management Advisor</p></div></article>
       <article class="card"><div class="ph"><img src="https://millionaire-migrant-preview.neil-823.workers.dev/assets/img/fb248915b2a15bce.webp" width="640" height="640" loading="lazy" decoding="async" alt="Nicolas Duran"></div><div><h3>Nicolas Duran</h3><p class="role">Lead Advisor – Cross-Border Property</p></div></article>
     </div>
-    <p class="team-cta" data-rv><a class="btn btn-light" href="#form">Book an expert <svg class="arw" aria-hidden="true"><use href="#arw"/></svg></a></p>
+    <p class="team-cta" data-rv><a class="btn btn-light" href="#form">Book an Expert Session <svg class="arw" aria-hidden="true"><use href="#arw"/></svg></a></p>
   </div>
 </section>
 
@@ -760,9 +777,20 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
     s.onerror = native;
     d.head.appendChild(s);
   }
-  if (!reduce && !conn.saveData) {
+  if (film && !reduce && !conn.saveData) {
     if (d.readyState === 'complete') startFilm();
     else addEventListener('load', startFilm);
+  }
+
+  /* WhatsApp button: steps aside when it would cover a form, the footer or a row's arrows */
+  var wa = d.querySelector('.wa-float'), waOver = d.querySelectorAll('form, .foot, .q-nav, .cs-nav');
+  if (wa && waOver.length && 'IntersectionObserver' in window) {
+    var waSeen = new Set();
+    var waIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) waSeen.add(en.target); else waSeen.delete(en.target); });
+      wa.classList.toggle('away', waSeen.size > 0);
+    });
+    waOver.forEach(function (el) { waIo.observe(el); });
   }
 
   /* newsletter form: HubSpot loads only when the footer comes near */
@@ -772,7 +800,18 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
     var s = d.createElement('script');
     s.src = 'https://js-eu1.hsforms.net/forms/embed/v2.js'; s.charset = 'utf-8';
     s.onload = function () {
-      if (window.hbspt) hbspt.forms.create({ region: 'eu1', portalId: '146356474', formId: '173f77d0-c314-4e54-ae84-ba967c6cd453', target: '#hubspot-form-173f77d0-c314-4e54-ae84-ba967c6cd453' });
+      if (window.hbspt) hbspt.forms.create({ region: 'eu1', portalId: '146356474', formId: '173f77d0-c314-4e54-ae84-ba967c6cd453', target: '#hubspot-form-173f77d0-c314-4e54-ae84-ba967c6cd453', onFormReady: function () {
+        /* HubSpot's frame brings its own font; give it this site's */
+        var frame = nl.querySelector('iframe'), doc = frame && frame.contentDocument;
+        if (!doc) return;
+        var faces = '';
+        Array.prototype.forEach.call(d.styleSheets, function (sheet) {
+          try { Array.prototype.forEach.call(sheet.cssRules, function (r) { if (r.type === 5 && /Public Sans/.test(r.cssText)) faces += r.cssText; }); } catch (e) {}
+        });
+        var st = doc.createElement('style');
+        st.textContent = faces + 'html,body,form,label,input,button,select,textarea,p,span,a,div,legend{font-family:"Public Sans",Arial,sans-serif!important}';
+        doc.head.appendChild(st);
+      } });
     };
     d.body.appendChild(s);
   }

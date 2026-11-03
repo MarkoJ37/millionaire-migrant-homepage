@@ -404,6 +404,20 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
   .hero-media img{animation:none}
   .offer:hover,.jeremy-grid:hover .portrait img{transform:none}
 }
+
+/* ---------- review fixes ---------- */
+.stack{display:grid;gap:20px}
+.stack h2{font-size:clamp(2.5rem,6.6vw,6rem);line-height:1.02;letter-spacing:-.03em}
+.stack .lead{max-width:60ch}
+.wa-float{transition:transform .25s var(--ease),opacity .25s var(--ease)}
+.wa-float.away{opacity:0;pointer-events:none;transform:scale(.8)}
+@media (max-width:767px){.wa-float{width:48px;height:48px}.wa-float svg{width:24px;height:24px}}
+
+.hero-text{grid-template-rows:none;align-content:end;padding-block:96px 64px}
+.stand{align-self:auto;margin-top:40px}
+@media (min-width:768px){.get-a{grid-template-columns:1fr}}
+@media (min-width:1024px){.get-list{grid-template-columns:repeat(4,1fr)}}
+.hero-text{padding-block:96px}
 </style>
 </head>
 <body>
@@ -461,8 +475,7 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
 
 <section class="mast" aria-labelledby="bp-title">
   <div class="mast-media">
-    <img src="https://image.mux.com/j702xigDoS02ojupP9ol00kmnJxc00iTEKATtAymvC202jXw/thumbnail.webp?width=800&amp;time=8" srcset="https://image.mux.com/j702xigDoS02ojupP9ol00kmnJxc00iTEKATtAymvC202jXw/thumbnail.webp?width=800&amp;time=8 800w, https://image.mux.com/j702xigDoS02ojupP9ol00kmnJxc00iTEKATtAymvC202jXw/thumbnail.webp?width=1280&amp;time=8 1280w" sizes="100vw" width="1280" height="720" alt="" fetchpriority="high" decoding="async">
-    <video muted loop playsinline preload="none" aria-hidden="true" data-mux="j702xigDoS02ojupP9ol00kmnJxc00iTEKATtAymvC202jXw"></video>
+    <img src="https://cdn.sanity.io/images/hxxe4r0k/production/ab0e245c43e6a59d25555d542625c144a2a9c4f0-1900x1328.png?w=1280&amp;q=70&amp;fit=max&amp;fm=webp" srcset="https://cdn.sanity.io/images/hxxe4r0k/production/ab0e245c43e6a59d25555d542625c144a2a9c4f0-1900x1328.png?w=800&amp;q=70&amp;fit=max&amp;fm=webp 800w, https://cdn.sanity.io/images/hxxe4r0k/production/ab0e245c43e6a59d25555d542625c144a2a9c4f0-1900x1328.png?w=1280&amp;q=70&amp;fit=max&amp;fm=webp 1280w, https://cdn.sanity.io/images/hxxe4r0k/production/ab0e245c43e6a59d25555d542625c144a2a9c4f0-1900x1328.png?w=1900&amp;q=68&amp;fit=max&amp;fm=webp 1900w" sizes="100vw" width="1280" height="720" alt="A printed Millionaire Migrant Blueprint and its folder" fetchpriority="high" decoding="async">
   </div>
   <div class="wrap hero-text">
     <h1 id="bp-title"><span class="line"><span>The Blueprint</span></span></h1>
@@ -505,7 +518,6 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
     <div class="covers-left" data-rv>
       <h2 id="covers-title">What your Blueprint covers</h2>
       <p class="lead">A bespoke plan covering each of these areas.</p>
-      <div class="covers-pic"><img src="https://cdn.sanity.io/images/hxxe4r0k/production/ab0e245c43e6a59d25555d542625c144a2a9c4f0-1900x1328.png?w=800&amp;q=70&amp;fit=max&amp;fm=webp" width="800" height="559" loading="lazy" decoding="async" alt="A printed Millionaire Migrant Blueprint and its folder"></div>
     </div>
     <ul class="areas" data-rv>
       <li><h3>Banking</h3><p>Which banks, in which countries, and the order to open accounts, so your money never sits in one bank or one country.</p></li>
@@ -520,13 +532,12 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
 
 <section class="section" id="get" aria-labelledby="get-title">
   <div class="wrap">
-    <div class="ax split-head" data-rv>
+    <div class="stack" data-rv>
       <h2 id="get-title">What you get</h2>
       <p class="lead">The written plan is the start. This is the support that comes with it.</p>
     </div>
     <div class="get-board">
       <div class="get-a" data-rv>
-        <div class="get-portrait"><img src="https://millionaire-migrant-preview.neil-823.workers.dev/assets/img/48a3f09ac860243f.webp" width="1080" height="1350" loading="lazy" decoding="async" alt="Jeremy Savory"></div>
         <div class="get-list">
         <div class="get-item"><h3>Advisory calls</h3><p>Scheduled calls with your advisory team to walk through your Blueprint, answer questions and agree next steps as you work through your plan.</p></div>
         <div class="get-item"><h3>Senior team access</h3><p>Input from senior advisors, beyond your main contact, on the more complex or higher-stakes parts of your plan.</p></div>
@@ -906,9 +917,20 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
     s.onerror = native;
     d.head.appendChild(s);
   }
-  if (!reduce && !conn.saveData) {
+  if (film && !reduce && !conn.saveData) {
     if (d.readyState === 'complete') startFilm();
     else addEventListener('load', startFilm);
+  }
+
+  /* WhatsApp button: steps aside when it would cover a form, the footer or a row's arrows */
+  var wa = d.querySelector('.wa-float'), waOver = d.querySelectorAll('form, .foot, .q-nav, .cs-nav');
+  if (wa && waOver.length && 'IntersectionObserver' in window) {
+    var waSeen = new Set();
+    var waIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) waSeen.add(en.target); else waSeen.delete(en.target); });
+      wa.classList.toggle('away', waSeen.size > 0);
+    });
+    waOver.forEach(function (el) { waIo.observe(el); });
   }
 
   /* newsletter form: HubSpot loads only when the footer comes near */
@@ -918,7 +940,18 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
     var s = d.createElement('script');
     s.src = 'https://js-eu1.hsforms.net/forms/embed/v2.js'; s.charset = 'utf-8';
     s.onload = function () {
-      if (window.hbspt) hbspt.forms.create({ region: 'eu1', portalId: '146356474', formId: '173f77d0-c314-4e54-ae84-ba967c6cd453', target: '#hubspot-form-173f77d0-c314-4e54-ae84-ba967c6cd453' });
+      if (window.hbspt) hbspt.forms.create({ region: 'eu1', portalId: '146356474', formId: '173f77d0-c314-4e54-ae84-ba967c6cd453', target: '#hubspot-form-173f77d0-c314-4e54-ae84-ba967c6cd453', onFormReady: function () {
+        /* HubSpot's frame brings its own font; give it this site's */
+        var frame = nl.querySelector('iframe'), doc = frame && frame.contentDocument;
+        if (!doc) return;
+        var faces = '';
+        Array.prototype.forEach.call(d.styleSheets, function (sheet) {
+          try { Array.prototype.forEach.call(sheet.cssRules, function (r) { if (r.type === 5 && /Public Sans/.test(r.cssText)) faces += r.cssText; }); } catch (e) {}
+        });
+        var st = doc.createElement('style');
+        st.textContent = faces + 'html,body,form,label,input,button,select,textarea,p,span,a,div,legend{font-family:"Public Sans",Arial,sans-serif!important}';
+        doc.head.appendChild(st);
+      } });
     };
     d.body.appendChild(s);
   }

@@ -265,24 +265,6 @@ h3{font-size:var(--fs-h3);line-height:1.2;letter-spacing:-.005em}
 }
 @media (min-width:1024px){.leads{margin-top:72px}.lead-person{grid-template-columns:5fr 6fr;gap:28px;align-items:end}.lead-person .ph{aspect-ratio:4/5}}
 
-/* ---------- case studies ---------- */
-.cases-grid{display:grid;gap:16px;margin-top:56px;align-items:start}
-.case{background:var(--grey)}
-.case summary{display:grid;grid-template-columns:1fr 32px;gap:16px;align-items:start;padding:24px 20px;cursor:pointer;list-style:none;font:400 var(--fs-h3)/1.25 var(--serif);transition:background-color .2s}
-.case summary::-webkit-details-marker{display:none}
-.case summary:hover{background:#ebebeb}
-.pm{position:relative;width:32px;height:32px;background:var(--ink);border-radius:50%}
-.pm::before,.pm::after{content:"";position:absolute;left:50%;top:50%;width:12px;height:1.5px;background:#fff;transform:translate(-50%,-50%);transition:transform .3s var(--ease)}
-.pm::after{transform:translate(-50%,-50%) rotate(90deg)}
-.case[open] .pm::after{transform:translate(-50%,-50%) rotate(0)}
-.case-body{display:grid;gap:14px;padding:0 20px 28px;max-width:68ch}
-.case-body strong{display:block;margin-top:10px;font:400 var(--fs-lead)/1.3 var(--serif)}
-@media (min-width:1024px){
-  .cases-grid{grid-template-columns:1fr 1fr;gap:var(--gap)}
-  .case summary{padding:36px}
-  .case-body{padding:0 36px 40px}
-}
-
 /* ---------- testimonials ---------- */
 .reviews{background:var(--grey)}
 .reviews-top{display:flex;flex-wrap:wrap;align-items:flex-end;justify-content:space-between;gap:24px}
@@ -322,28 +304,6 @@ h3{font-size:var(--fs-h3);line-height:1.2;letter-spacing:-.005em}
   .marquee-track{animation:none;width:auto}
   .marquee-track .press-row{flex-wrap:wrap;justify-content:center;padding:0}
   .marquee-track .press-row[aria-hidden]{display:none}
-}
-
-/* ---------- guide ---------- */
-.guide{padding-top:calc(var(--section) * .5)}
-.guide-grid{display:grid;gap:36px;background:var(--grey);padding:40px 28px}
-.guide-grid .btns{align-self:end}
-@media (min-width:1024px){
-  .guide-grid{grid-template-columns:repeat(12,1fr);gap:var(--gap);padding:72px 64px}
-  .guide-grid .head{grid-column:1/span 7}
-  .guide-grid .btns{grid-column:9/span 4;flex-direction:column}
-  .guide-grid .btns .btn{width:100%}
-}
-
-/* ---------- final cta ---------- */
-.final{padding-block:16px var(--section)}
-.final-box{position:relative;overflow:hidden;background:var(--gold);padding:48px 28px}
-.final-box .head{position:relative;z-index:1}
-.final-box .btns{position:relative;z-index:1;margin-top:36px}
-.final-mark{display:none}
-@media (min-width:1024px){
-  .final-box{padding:88px 64px;min-height:420px}
-  .final-mark{display:block;position:absolute;right:64px;bottom:-60px;width:380px;height:auto;opacity:.13;pointer-events:none}
 }
 
 /* ---------- footer ---------- */
@@ -394,6 +354,88 @@ h3{font-size:var(--fs-h3);line-height:1.2;letter-spacing:-.005em}
   html{scroll-behavior:auto}
   .hero-media img{animation:none}
   .offer:hover,.jeremy-grid:hover .portrait img{transform:none}
+}
+
+/* ---------- review fixes ---------- */
+.stack{display:grid;gap:20px}
+.stack h2{font-size:clamp(2.5rem,6.6vw,6rem);line-height:1.02;letter-spacing:-.03em}
+.stack .lead{max-width:60ch}
+.wa-float{transition:transform .25s var(--ease),opacity .25s var(--ease)}
+.wa-float.away{opacity:0;pointer-events:none;transform:scale(.8)}
+@media (max-width:767px){.wa-float{width:48px;height:48px}.wa-float svg{width:24px;height:24px}}
+
+/* the column line, as on every other page */
+.ax{display:grid;gap:20px}
+.split-head .lead{max-width:60ch}
+@media (min-width:1024px){.ax{grid-template-columns:41fr 59fr;gap:0}}
+
+/* hero: the same left-aligned, large opening as the other pages */
+.hero-inner{justify-items:start;text-align:left;padding-block:96px 48px}
+.hero h1{font-size:min(10.4vw,6.5rem);line-height:1.02;letter-spacing:-.03em}
+.hero .lead{margin-top:32px}
+.hero .btn{margin-top:32px}
+.trust{justify-content:flex-start;margin-top:40px}
+@media (min-width:768px){.hero h1{font-size:min(6.8vw,6.5rem)}.hero-inner{padding-block:128px 64px}}
+
+/* covers and Jeremy on the column line */
+@media (min-width:1024px){
+  .covers-grid{grid-template-columns:41fr 59fr;gap:0}
+  .covers-grid .head{grid-column:1;padding-right:48px}
+  .covers-list{grid-column:2}
+  .covers .cta-row{grid-column:1}
+  .jeremy-grid{grid-template-columns:41fr 59fr;gap:0}
+  .portrait{grid-column:1;margin-right:32px}
+  .jeremy-text{grid-column:2}
+}
+
+/* case studies: one at a time, as on the Blueprint page */
+.cases{display:grid;grid-auto-flow:column;grid-auto-columns:calc(100% - 20px);gap:8px;margin-top:48px;overflow-x:auto;scroll-snap-type:x mandatory;scroll-behavior:smooth;overscroll-behavior-x:contain;scrollbar-width:none}
+.cases::-webkit-scrollbar{display:none}
+.cs{scroll-snap-align:start;display:grid;align-content:start;gap:28px;padding:28px 20px 32px;background:var(--grey)}
+.cs h3{font-size:var(--fs-h3);line-height:1.2}
+.cs-head p{margin-top:14px;max-width:44ch}
+.cs dl{display:grid;gap:22px;margin:0}
+.cs dt{font:400 var(--fs-lead)/1.2 var(--serif);color:#7d523c}
+.cs dd{margin:6px 0 0;max-width:60ch}
+.cs dd p+p{margin-top:12px}
+.cs-nav{display:flex;align-items:center;justify-content:space-between;gap:24px;margin-top:20px}
+.cs-bars{display:grid;grid-template-columns:1fr 1fr;gap:6px;flex:1;max-width:220px}
+.cs-bars span{height:6px;background:rgba(5,5,5,.14);transition:background-color .3s}
+.cs-bars span.on{background:var(--ink)}
+.cs-arrows{display:flex;gap:8px}
+.cs-arrows button{display:grid;place-items:center;width:48px;height:48px;border:0;border-radius:50%;background:var(--ink);color:#fff;cursor:pointer;transition:background-color .2s,opacity .2s,transform .15s}
+.cs-arrows button:hover{background:var(--charcoal)}
+.cs-arrows button:active{transform:scale(.95)}
+.cs-arrows button:disabled{opacity:.25;cursor:default}
+.cs-arrows .back svg{transform:rotate(180deg)}
+.cs-arrows svg{width:20px;height:20px}
+@media (min-width:768px){.cases{grid-auto-columns:100%;gap:16px}.cs{padding:40px}}
+@media (min-width:1024px){
+  .cases{margin-top:72px}
+  .cs{grid-template-columns:41fr 59fr;gap:0;padding:56px 48px;align-content:stretch}
+  .cs-head{padding-right:48px}
+}
+@media (prefers-reduced-motion:no-preference){
+  .js .cs-head,.js .cs dl>div{opacity:0;transform:translateX(32px);transition:opacity .25s var(--ease),transform .25s var(--ease)}
+  .js .cs.in .cs-head,.js .cs.in dl>div{opacity:1;transform:none;transition:opacity .7s var(--ease),transform .7s var(--ease)}
+  .js .cs.in dl>div:nth-child(1){transition-delay:.12s}
+  .js .cs.in dl>div:nth-child(2){transition-delay:.22s}
+  .js .cs.in dl>div:nth-child(3){transition-delay:.32s}
+}
+
+/* the guide and the close, whole pages like the others */
+.guide{background:var(--grey)}
+.guide-text{display:grid;gap:28px}
+.final-q{background:var(--gold);padding-block:calc(var(--section) * .8)}
+.final-q h2{font-size:min(13.4vw,7.5rem);line-height:1;letter-spacing:-.035em;text-wrap:initial}
+.q-line{display:block}
+.q-mid{gap:24px;margin-top:40px}
+.q-mid p{font-size:var(--fs-lead);line-height:1.45;max-width:46ch}
+@media (min-width:1024px){
+  .final-q h2{font-size:min(8.8vw,8rem);white-space:nowrap}
+  .q-line{display:inline}
+  .q-mid{margin-top:64px;align-items:start;gap:0}
+  .q-mid p{padding-right:48px}
 }
 </style>
 </head>
@@ -468,7 +510,7 @@ h3{font-size:var(--fs-h3);line-height:1.2;letter-spacing:-.005em}
 
 <section class="offers section" id="services" aria-labelledby="offers-title">
   <div class="wrap">
-    <div class="head" data-rv>
+    <div class="stack" data-rv>
       <h2 id="offers-title">Build your Plan B before you need it.</h2>
       <p class="lead">Plan everything with us, choose a single programme, or take thirty minutes with an expert before you decide anything.</p>
     </div>
@@ -487,7 +529,7 @@ h3{font-size:var(--fs-h3);line-height:1.2;letter-spacing:-.005em}
             <li>A written Blueprint you keep, with every step in order</li>
             <li>Implementation support and introductions to our banks, lawyers and accountants</li>
           </ul>
-          <a class="btn btn-dark" href="services/blueprint.html">See the Blueprint <svg class="arw" aria-hidden="true"><use href="#arw"/></svg></a>
+          <a class="btn btn-dark" href="services/blueprint.html">Start your Blueprint <svg class="arw" aria-hidden="true"><use href="#arw"/></svg></a>
         </div>
         <img class="ghost" src="https://millionaire-migrant-preview.neil-823.workers.dev/assets/img/6f161820ce478564.webp" width="300" height="300" alt="" loading="lazy" decoding="async">
       </article>
@@ -505,7 +547,7 @@ h3{font-size:var(--fs-h3);line-height:1.2;letter-spacing:-.005em}
             <li>A second opinion on advice you already have</li>
             <li>Clear next steps, whatever you decide</li>
           </ul>
-          <a class="btn btn-dark" href="services/consultancy.html">Book a session <svg class="arw" aria-hidden="true"><use href="#arw"/></svg></a>
+          <a class="btn btn-dark" href="services/consultancy.html">Book an Expert Session <svg class="arw" aria-hidden="true"><use href="#arw"/></svg></a>
         </div>
         <img class="ghost" src="https://millionaire-migrant-preview.neil-823.workers.dev/assets/img/6f161820ce478564.webp" width="300" height="300" alt="" loading="lazy" decoding="async">
       </article>
@@ -546,7 +588,7 @@ h3{font-size:var(--fs-h3);line-height:1.2;letter-spacing:-.005em}
       <div><dt>Investments</dt><dd>Early-stage opportunities in high-growth markets, matched to your risk profile and to the rest of your plan.</dd></div>
     </dl>
     <div class="cta-row" data-rv>
-      <a class="btn btn-dark" href="services/blueprint.html">See the Blueprint <svg class="arw" aria-hidden="true"><use href="#arw"/></svg></a>
+      <a class="btn btn-dark" href="services/blueprint.html">Start your Blueprint <svg class="arw" aria-hidden="true"><use href="#arw"/></svg></a>
     </div>
   </div>
 </section>
@@ -579,7 +621,7 @@ h3{font-size:var(--fs-h3);line-height:1.2;letter-spacing:-.005em}
 
 <section class="team section" id="team" aria-labelledby="team-title">
   <div class="wrap">
-    <div class="head" data-rv>
+    <div class="ax split-head" data-rv>
       <h2 id="team-title">Meet your expert team</h2>
       <p class="lead">The advisors who work with you alongside Jeremy. Every Blueprint and every Expert Session is handled by one of them.</p>
     </div>
@@ -603,7 +645,7 @@ h3{font-size:var(--fs-h3);line-height:1.2;letter-spacing:-.005em}
     </div>
     <ul class="others" data-rv>
       <li class="other"><div class="ph"><img src="https://millionaire-migrant-preview.neil-823.workers.dev/assets/img/dfd781dc06b96052.webp" width="640" height="640" loading="lazy" decoding="async" alt="Mohammed Abdulaziz"></div><div><h3>Mohammed Abdulaziz</h3><p>Lead Advisor – Dubai Real Estate</p></div></li>
-      <li class="other"><div class="ph"><img src="https://millionaire-migrant-preview.neil-823.workers.dev/assets/img/78868b74d6c13a36.webp" width="640" height="640" loading="lazy" decoding="async" alt="Nafaa Lafi"></div><div><h3>Nafaa Lafi</h3><p>Real Estate Advisor - Dubai Market</p></div></li>
+      <li class="other"><div class="ph"><img src="https://millionaire-migrant-preview.neil-823.workers.dev/assets/img/78868b74d6c13a36.webp" width="640" height="640" loading="lazy" decoding="async" alt="Nafaa Lafi"></div><div><h3>Nafaa Lafi</h3><p>Real Estate Advisor – Dubai Market</p></div></li>
       <li class="other"><div class="ph"><img src="https://millionaire-migrant-preview.neil-823.workers.dev/assets/img/7fdac3fab9570635.webp" width="640" height="640" loading="lazy" decoding="async" alt="Luke Coupe"></div><div><h3>Luke Coupe</h3><p>Wealth Management Advisor</p></div></li>
       <li class="other"><div class="ph"><img src="https://millionaire-migrant-preview.neil-823.workers.dev/assets/img/fb248915b2a15bce.webp" width="640" height="640" loading="lazy" decoding="async" alt="Nicolas Duran"></div><div><h3>Nicolas Duran</h3><p>Lead Advisor – Cross-Border Property</p></div></li>
       <li class="other"><div class="ph"><img src="https://millionaire-migrant-preview.neil-823.workers.dev/assets/img/c4c87ef78771bbb3.webp" width="640" height="640" loading="lazy" decoding="async" alt="Zorana Vojnovic"></div><div><h3>Zorana Vojnovic</h3><p>Client Advisor</p></div></li>
@@ -613,32 +655,34 @@ h3{font-size:var(--fs-h3);line-height:1.2;letter-spacing:-.005em}
 
 <section class="section" id="case-studies" aria-labelledby="cases-title">
   <div class="wrap">
-    <div class="head" data-rv>
+    <div class="ax split-head" data-rv>
       <h2 id="cases-title">Case studies</h2>
       <p class="lead">Two clients, two starting points. Behind both, a team with a combined 90 years of experience across more than 20 jurisdictions.</p>
     </div>
-    <div class="cases-grid" data-rv>
-      <details class="case">
-        <summary><h3 style="font:inherit">How One Canadian Family Built Their Global Plan B</h3><span class="pm" aria-hidden="true"></span></summary>
-        <div class="case-body">
-          <p>A Canadian entrepreneur in his late 30s came to Millionaire Migrant with one goal: create greater freedom and security for his family.</p>
-          <p><strong>The Challenge</strong>The family wanted more flexibility, stronger asset protection, and a future that was not tied to a single country.</p>
-          <p><strong>The Strategy</strong>We created a multi-jurisdiction strategy that separated their residency, citizenship, banking, and asset structures.</p>
-          <p>The plan combined private banking, international investment opportunities, and a European Golden Visa pathway. This gave the family greater flexibility while supporting long-term growth and future planning.</p>
-          <p><strong>The Outcome</strong>Today, the family has greater control over where they live, how they invest, and the opportunities available to the next generation.</p>
-          <p>What began as a desire for lower taxes became a complete global Plan B.</p>
-        </div>
-      </details>
-      <details class="case">
-        <summary><h3 style="font:inherit">How One Australian Entrepreneur Restructured His Global Tax Position</h3><span class="pm" aria-hidden="true"></span></summary>
-        <div class="case-body">
-          <p>An Australian entrepreneur came to Millionaire Migrant to establish a more tax-efficient international base without disrupting the business and investments he had already built.</p>
-          <p><strong>The Challenge</strong>His business remained anchored in Australia, leaving his tax exposure tied to a single system regardless of where he chose to live.</p>
-          <p><strong>The Strategy</strong>With direct input from Jeremy Savory and our senior advisory team, we developed a coordinated strategy across relocation, tax residency, corporate structuring, and asset protection.</p>
-          <p>We guided his transition to UAE tax residency, established a new foreign tax-free business entity, and moved his investments into an offshore trust. This separated his personal, operating, and investment structures for the first time.</p>
-          <p><strong>The Outcome</strong>Today, he holds UAE tax residency, operates through a Hong Kong entity, and holds his investments through an offshore trust. Through six months of post-implementation concierge support, our team coordinated the transition, supported the client through the move, and helped ensure every part of the new structure was put in place correctly.</p>
-        </div>
-      </details>
+    <div class="cases" id="cases" role="region" aria-label="Case studies" tabindex="0">
+      <article class="cs">
+        <div class="cs-head"><h3>How One Canadian Family Built Their Global Plan B</h3><p>A Canadian entrepreneur in his late 30s came to Millionaire Migrant with one goal: create greater freedom and security for his family.</p></div>
+        <dl>
+          <div><dt>The Challenge</dt><dd><p>The family wanted more flexibility, stronger asset protection, and a future that was not tied to a single country.</p></dd></div>
+          <div><dt>The Strategy</dt><dd><p>We created a multi-jurisdiction strategy that separated their residency, citizenship, banking, and asset structures.</p><p>The plan combined private banking, international investment opportunities, and a European Golden Visa pathway. This gave the family greater flexibility while supporting long-term growth and future planning.</p></dd></div>
+          <div><dt>The Outcome</dt><dd><p>Today, the family has greater control over where they live, how they invest, and the opportunities available to the next generation.</p><p>What began as a desire for lower taxes became a complete global Plan B.</p></dd></div>
+        </dl>
+      </article>
+      <article class="cs">
+        <div class="cs-head"><h3>How One Australian Entrepreneur Restructured His Global Tax Position</h3><p>An Australian entrepreneur came to Millionaire Migrant to establish a more tax-efficient international base without disrupting the business and investments he had already built.</p></div>
+        <dl>
+          <div><dt>The Challenge</dt><dd><p>His business remained anchored in Australia, leaving his tax exposure tied to a single system regardless of where he chose to live.</p></dd></div>
+          <div><dt>The Strategy</dt><dd><p>With direct input from Jeremy Savory and our senior advisory team, we developed a coordinated strategy across relocation, tax residency, corporate structuring, and asset protection.</p><p>We guided his transition to UAE tax residency, established a new foreign tax-free business entity, and moved his investments into an offshore trust. This separated his personal, operating, and investment structures for the first time.</p></dd></div>
+          <div><dt>The Outcome</dt><dd><p>Today, he holds UAE tax residency, operates through a Hong Kong entity, and holds his investments through an offshore trust. Through six months of post-implementation concierge support, our team coordinated the transition, supported the client through the move, and helped ensure every part of the new structure was put in place correctly.</p></dd></div>
+        </dl>
+      </article>
+    </div>
+    <div class="cs-nav">
+      <div class="cs-bars" aria-hidden="true"><span class="on"></span><span></span></div>
+      <div class="cs-arrows">
+        <button class="back" type="button" aria-label="Previous" aria-controls="cases"><svg aria-hidden="true"><use href="#arw"/></svg></button>
+        <button class="fwd" type="button" aria-label="Next" aria-controls="cases"><svg aria-hidden="true"><use href="#arw"/></svg></button>
+      </div>
     </div>
   </div>
 </section>
@@ -709,13 +753,11 @@ h3{font-size:var(--fs-h3);line-height:1.2;letter-spacing:-.005em}
   </div>
 </section>
 
-<section class="guide" id="guide" aria-labelledby="guide-title">
-  <div class="wrap">
-    <div class="guide-grid" data-rv>
-      <div class="head">
-        <h2 id="guide-title">Start with the free guide</h2>
-        <p class="lead">Our tax residency guide sets out what to sort before you move, step by step. It’s free, sent by email. If you’d rather talk, message us on WhatsApp and an advisor will reply.</p>
-      </div>
+<section class="guide section" id="guide" aria-labelledby="guide-title">
+  <div class="wrap ax" data-rv>
+    <h2 id="guide-title">Start with the free guide</h2>
+    <div class="guide-text">
+      <p class="lead">Our tax residency guide sets out what to sort before you move, step by step. It’s free, sent by email. If you’d rather talk, message us on WhatsApp and an advisor will reply.</p>
       <div class="btns">
         <a class="btn btn-dark" href="#" data-off>Download the guide <svg class="arw" aria-hidden="true"><use href="#arw"/></svg></a>
         <a class="btn btn-gold" href="#" data-off>Chat with us on WhatsApp</a>
@@ -724,18 +766,15 @@ h3{font-size:var(--fs-h3);line-height:1.2;letter-spacing:-.005em}
   </div>
 </section>
 
-<section class="final" id="start" aria-labelledby="final-title">
+<section class="final-q" id="start" aria-labelledby="final-title">
   <div class="wrap">
-    <div class="final-box" data-rv>
-      <div class="head">
-        <h2 id="final-title">Not sure where to start?</h2>
-        <p class="lead">Book thirty minutes with Jeremy Savory or a senior advisor. You’ll leave knowing your options and what to do next.</p>
-      </div>
+    <h2 id="final-title" data-rv><span class="q-line">Not sure where</span> <span class="q-line">to start?</span></h2>
+    <div class="ax q-mid" data-rv>
+      <p>Book thirty minutes with Jeremy Savory or a senior advisor. You’ll leave knowing your options and what to do next.</p>
       <div class="btns">
         <a class="btn btn-dark" href="services/consultancy.html">Book an Expert Session <svg class="arw" aria-hidden="true"><use href="#arw"/></svg></a>
         <a class="btn btn-light" href="#" data-off>Chat with us on WhatsApp</a>
       </div>
-      <img class="final-mark" src="https://millionaire-migrant-preview.neil-823.workers.dev/assets/img/3ed3afde37797bb1.svg" width="364" height="315" alt="" loading="lazy">
     </div>
   </div>
 </section>
@@ -892,6 +931,30 @@ h3{font-size:var(--fs-h3);line-height:1.2;letter-spacing:-.005em}
     sync();
   }
 
+  /* case studies: arrows and swipe move one case; each case's parts arrive and leave with it */
+  var csRow = d.getElementById('cases');
+  var cases = csRow.querySelectorAll('.cs'), csBars = d.querySelectorAll('.cs-bars span');
+  var csBack = d.querySelector('.cs-arrows .back'), csFwd = d.querySelector('.cs-arrows .fwd');
+  var csStep = function () { return cases[1].offsetLeft - cases[0].offsetLeft; };
+  var csSync = function () {
+    var i = Math.round(csRow.scrollLeft / csStep());
+    csBars.forEach(function (b, n) { b.classList.toggle('on', n === i); });
+    csBack.disabled = i === 0;
+    csFwd.disabled = i === cases.length - 1;
+  };
+  var csGo = function (dir) { csRow.scrollBy({ left: dir * csStep(), behavior: reduce ? 'auto' : 'smooth' }); };
+  csBack.addEventListener('click', function () { csGo(-1); });
+  csFwd.addEventListener('click', function () { csGo(1); });
+  csRow.addEventListener('scroll', function () { cancelAnimationFrame(csSync.f); csSync.f = requestAnimationFrame(csSync); }, { passive: true });
+  addEventListener('resize', csSync);
+  csSync();
+  if ('IntersectionObserver' in window) {
+    var cio = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { en.target.classList.toggle('in', en.isIntersecting); });
+    }, { root: csRow, threshold: 0.6 });
+    cases.forEach(function (c) { cio.observe(c); });
+  }
+
   /* hero film: poster paints first; the Mux stream starts only after load */
   var video = d.querySelector('.hero video');
   var conn = navigator.connection || {};
@@ -915,6 +978,17 @@ h3{font-size:var(--fs-h3);line-height:1.2;letter-spacing:-.005em}
   if (d.readyState === 'complete') startVideo();
   else addEventListener('load', startVideo);
 
+  /* WhatsApp button: steps aside when it would cover a form, the footer or a row's arrows */
+  var wa = d.querySelector('.wa-float'), waOver = d.querySelectorAll('form, .foot, .q-nav, .cs-nav');
+  if (wa && waOver.length && 'IntersectionObserver' in window) {
+    var waSeen = new Set();
+    var waIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) waSeen.add(en.target); else waSeen.delete(en.target); });
+      wa.classList.toggle('away', waSeen.size > 0);
+    });
+    waOver.forEach(function (el) { waIo.observe(el); });
+  }
+
   /* newsletter form: HubSpot loads only when the footer comes near */
   var nl = d.getElementById('hubspot-form-173f77d0-c314-4e54-ae84-ba967c6cd453');
   function loadForm() {
@@ -922,7 +996,18 @@ h3{font-size:var(--fs-h3);line-height:1.2;letter-spacing:-.005em}
     var s = d.createElement('script');
     s.src = 'https://js-eu1.hsforms.net/forms/embed/v2.js'; s.charset = 'utf-8';
     s.onload = function () {
-      if (window.hbspt) hbspt.forms.create({ region: 'eu1', portalId: '146356474', formId: '173f77d0-c314-4e54-ae84-ba967c6cd453', target: '#hubspot-form-173f77d0-c314-4e54-ae84-ba967c6cd453' });
+      if (window.hbspt) hbspt.forms.create({ region: 'eu1', portalId: '146356474', formId: '173f77d0-c314-4e54-ae84-ba967c6cd453', target: '#hubspot-form-173f77d0-c314-4e54-ae84-ba967c6cd453', onFormReady: function () {
+        /* HubSpot's frame brings its own font; give it this site's */
+        var frame = nl.querySelector('iframe'), doc = frame && frame.contentDocument;
+        if (!doc) return;
+        var faces = '';
+        Array.prototype.forEach.call(d.styleSheets, function (sheet) {
+          try { Array.prototype.forEach.call(sheet.cssRules, function (r) { if (r.type === 5 && /Public Sans/.test(r.cssText)) faces += r.cssText; }); } catch (e) {}
+        });
+        var st = doc.createElement('style');
+        st.textContent = faces + 'html,body,form,label,input,button,select,textarea,p,span,a,div,legend{font-family:"Public Sans",Arial,sans-serif!important}';
+        doc.head.appendChild(st);
+      } });
     };
     d.body.appendChild(s);
   }

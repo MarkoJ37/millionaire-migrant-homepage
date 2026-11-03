@@ -394,6 +394,22 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
   .hero-media img{animation:none}
   .offer:hover,.jeremy-grid:hover .portrait img{transform:none}
 }
+
+/* ---------- review fixes ---------- */
+.stack{display:grid;gap:20px}
+.stack h2{font-size:clamp(2.5rem,6.6vw,6rem);line-height:1.02;letter-spacing:-.03em}
+.stack .lead{max-width:60ch}
+.wa-float{transition:transform .25s var(--ease),opacity .25s var(--ease)}
+.wa-float.away{opacity:0;pointer-events:none;transform:scale(.8)}
+@media (max-width:767px){.wa-float{width:48px;height:48px}.wa-float svg{width:24px;height:24px}}
+
+.hero-text{grid-template-rows:none;align-content:end;padding-block:96px 64px}
+.stand{align-self:auto;margin-top:40px}
+.hero-text .lead{align-self:auto;margin-top:0;max-width:52ch}
+@media (min-width:1024px){.hero-lead{grid-column:1/-1}}
+
+.pg-pic img{filter:none}
+.hero-text{padding-block:96px}
 </style>
 </head>
 <body>
@@ -451,8 +467,7 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
 
 <section class="mast" aria-labelledby="pg-title">
   <div class="mast-media">
-    <img src="https://image.mux.com/NBoKbhco2GNEaILYZkln1qaA2gBCpUp5uXLBrF8ll600/thumbnail.webp?width=800&amp;time=2" srcset="https://image.mux.com/NBoKbhco2GNEaILYZkln1qaA2gBCpUp5uXLBrF8ll600/thumbnail.webp?width=800&amp;time=2 800w, https://image.mux.com/NBoKbhco2GNEaILYZkln1qaA2gBCpUp5uXLBrF8ll600/thumbnail.webp?width=1280&amp;time=2 1280w" sizes="100vw" width="1280" height="720" alt="" fetchpriority="high" decoding="async">
-    <video muted loop playsinline preload="none" aria-hidden="true" data-mux="NBoKbhco2GNEaILYZkln1qaA2gBCpUp5uXLBrF8ll600"></video>
+    <img src="https://cdn.sanity.io/images/hxxe4r0k/production/7e0bf3262a39cfc9754ad77dd883b0f5fbfb2d51-2783x1855.png?w=1280&amp;q=70&amp;fit=max&amp;fm=webp" srcset="https://cdn.sanity.io/images/hxxe4r0k/production/7e0bf3262a39cfc9754ad77dd883b0f5fbfb2d51-2783x1855.png?w=800&amp;q=70&amp;fit=max&amp;fm=webp 800w, https://cdn.sanity.io/images/hxxe4r0k/production/7e0bf3262a39cfc9754ad77dd883b0f5fbfb2d51-2783x1855.png?w=1280&amp;q=70&amp;fit=max&amp;fm=webp 1280w, https://cdn.sanity.io/images/hxxe4r0k/production/7e0bf3262a39cfc9754ad77dd883b0f5fbfb2d51-2783x1855.png?w=1900&amp;q=68&amp;fit=max&amp;fm=webp 1900w" sizes="100vw" width="1280" height="720" alt="Two passports held above a café table" fetchpriority="high" decoding="async">
   </div>
   <div class="wrap hero-text">
     <h1 id="pg-title"><span class="line"><span>Choose your</span></span> <span class="line"><span>programme.</span></span></h1>
@@ -462,7 +477,7 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
 
 <section class="section" id="delivered" aria-labelledby="del-title">
   <div class="wrap">
-    <div class="ax split-head" data-rv>
+    <div class="stack" data-rv>
       <h2 id="del-title">Delivered by Savory &amp; Partners</h2>
       <p class="lead">Savory &amp; Partners is Jeremy Savory’s licensed advisory firm and has delivered citizenship and residency programmes for 15 years. Millionaire Migrant is where you start. Savory &amp; Partners carries out the work.</p>
     </div>
@@ -471,9 +486,7 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
       <div class="tile tile-2"><p class="fig">11,000+</p><p class="cap">clients</p></div>
       <div class="tile tile-3"><p class="fig">8</p><p class="cap">governments that license the firm as an official provider</p></div>
     </div>
-    <div class="steps-row">
-      <div class="steps-pic"><img src="https://millionaire-migrant-preview.neil-823.workers.dev/assets/img/48a3f09ac860243f.webp" width="1080" height="1350" loading="lazy" decoding="async" alt="Jeremy Savory"></div>
-      <div class="tl-wrap">
+    <div class="tl-wrap">
         <span class="tl-track" aria-hidden="true"></span>
         <span class="tl-fill" aria-hidden="true"></span>
         <ol class="tl">
@@ -481,7 +494,6 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
           <li><p class="dur">2</p><div><h3>We confirm eligibility and quote</h3><p>A short call to check you qualify, then a written quote for the programme, government fees included.</p></div></li>
           <li><p class="dur">3</p><div><h3>Savory &amp; Partners handles the application</h3><p>Your Millionaire Migrant advisor stays with you from the first call to your passport, permit or account.</p></div></li>
         </ol>
-      </div>
     </div>
   </div>
 </section>
@@ -493,7 +505,7 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
         <h2 id="pg-list-title">The programmes</h2>
         <p class="lead">Every programme below is one Savory &amp; Partners delivers today. If yours isn’t listed, ask. The list is shorter than the firm’s reach.</p>
       </div>
-      <div class="pg-pic"><img src="https://cdn.sanity.io/images/hxxe4r0k/production/7e0bf3262a39cfc9754ad77dd883b0f5fbfb2d51-2783x1855.png?w=1000&amp;q=70&amp;fit=max&amp;fm=webp" width="1000" height="667" loading="lazy" decoding="async" alt="Two passports held above a café table"></div>
+      <div class="pg-pic"><img src="https://cdn.sanity.io/images/hxxe4r0k/production/24fb29b01213b2afd9d27d7cd8884e5a2c5a5ed5-1440x700.png?w=1200&amp;q=70&amp;fit=max&amp;fm=webp" width="1200" height="583" loading="lazy" decoding="async" alt="A city skyline at sunset"></div>
     </div>
     <div class="pg-lead" data-rv>
       <article class="pg-card">
@@ -537,7 +549,6 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
     <div class="form-left" data-rv>
       <h2 id="form-title">Tell us what you need</h2>
       <p class="lead">A few details, then you choose a time for a short eligibility call. Nothing is paid until you have a written quote.</p>
-      <div class="form-pic"><img src="https://cdn.sanity.io/images/hxxe4r0k/production/ff5e82b78ffa05761ac30232c9b3fe43e6ed3219-6000x4000.png?w=800&amp;q=70&amp;fit=max&amp;fm=webp" width="800" height="533" loading="lazy" decoding="async" alt="Hands resting on a table with a Millionaire Migrant folder and box"></div>
     </div>
     <form class="bp-form" id="bp-form" novalidate data-rv>
       <div class="f-bars" aria-hidden="true"><span class="on"></span><span></span></div>
@@ -809,9 +820,20 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
     s.onerror = native;
     d.head.appendChild(s);
   }
-  if (!reduce && !conn.saveData) {
+  if (film && !reduce && !conn.saveData) {
     if (d.readyState === 'complete') startFilm();
     else addEventListener('load', startFilm);
+  }
+
+  /* WhatsApp button: steps aside when it would cover a form, the footer or a row's arrows */
+  var wa = d.querySelector('.wa-float'), waOver = d.querySelectorAll('form, .foot, .q-nav, .cs-nav');
+  if (wa && waOver.length && 'IntersectionObserver' in window) {
+    var waSeen = new Set();
+    var waIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) waSeen.add(en.target); else waSeen.delete(en.target); });
+      wa.classList.toggle('away', waSeen.size > 0);
+    });
+    waOver.forEach(function (el) { waIo.observe(el); });
   }
 
   /* newsletter form: HubSpot loads only when the footer comes near */
@@ -821,7 +843,18 @@ fieldset{margin:0;padding:0;border:0;min-width:0}
     var s = d.createElement('script');
     s.src = 'https://js-eu1.hsforms.net/forms/embed/v2.js'; s.charset = 'utf-8';
     s.onload = function () {
-      if (window.hbspt) hbspt.forms.create({ region: 'eu1', portalId: '146356474', formId: '173f77d0-c314-4e54-ae84-ba967c6cd453', target: '#hubspot-form-173f77d0-c314-4e54-ae84-ba967c6cd453' });
+      if (window.hbspt) hbspt.forms.create({ region: 'eu1', portalId: '146356474', formId: '173f77d0-c314-4e54-ae84-ba967c6cd453', target: '#hubspot-form-173f77d0-c314-4e54-ae84-ba967c6cd453', onFormReady: function () {
+        /* HubSpot's frame brings its own font; give it this site's */
+        var frame = nl.querySelector('iframe'), doc = frame && frame.contentDocument;
+        if (!doc) return;
+        var faces = '';
+        Array.prototype.forEach.call(d.styleSheets, function (sheet) {
+          try { Array.prototype.forEach.call(sheet.cssRules, function (r) { if (r.type === 5 && /Public Sans/.test(r.cssText)) faces += r.cssText; }); } catch (e) {}
+        });
+        var st = doc.createElement('style');
+        st.textContent = faces + 'html,body,form,label,input,button,select,textarea,p,span,a,div,legend{font-family:"Public Sans",Arial,sans-serif!important}';
+        doc.head.appendChild(st);
+      } });
     };
     d.body.appendChild(s);
   }

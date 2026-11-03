@@ -290,6 +290,16 @@ ol{margin:0;padding:0;list-style:none}
   .hero-media img{animation:none}
   .offer:hover,.jeremy-grid:hover .portrait img{transform:none}
 }
+
+/* ---------- review fixes ---------- */
+.stack{display:grid;gap:20px}
+.stack h2{font-size:clamp(2.5rem,6.6vw,6rem);line-height:1.02;letter-spacing:-.03em}
+.stack .lead{max-width:60ch}
+.wa-float{transition:transform .25s var(--ease),opacity .25s var(--ease)}
+.wa-float.away{opacity:0;pointer-events:none;transform:scale(.8)}
+@media (max-width:767px){.wa-float{width:48px;height:48px}.wa-float svg{width:24px;height:24px}}
+
+.es{align-items:start}
 </style>
 </head>
 <body>
@@ -379,7 +389,7 @@ ol{margin:0;padding:0;list-style:none}
     <div class="bp-board" data-rv>
       <div class="bp-tile">
         <p class="fig">$14,000</p>
-        <a class="btn btn-dark" href="services/blueprint.html#form">Build your Blueprint <svg class="arw" aria-hidden="true"><use href="#arw"/></svg></a>
+        <a class="btn btn-dark" href="services/blueprint.html#form">Start your Blueprint <svg class="arw" aria-hidden="true"><use href="#arw"/></svg></a>
       </div>
       <div class="bp-pic"><img src="https://cdn.sanity.io/images/hxxe4r0k/production/ab0e245c43e6a59d25555d542625c144a2a9c4f0-1900x1328.png?w=800&amp;q=70&amp;fit=max&amp;fm=webp" srcset="https://cdn.sanity.io/images/hxxe4r0k/production/ab0e245c43e6a59d25555d542625c144a2a9c4f0-1900x1328.png?w=800&amp;q=70&amp;fit=max&amp;fm=webp 800w, https://cdn.sanity.io/images/hxxe4r0k/production/ab0e245c43e6a59d25555d542625c144a2a9c4f0-1900x1328.png?w=1400&amp;q=68&amp;fit=max&amp;fm=webp 1400w" sizes="(min-width:1024px) 58vw, 100vw" width="1400" height="978" loading="lazy" decoding="async" alt="A printed Millionaire Migrant Blueprint and its folder"></div>
     </div>
@@ -388,12 +398,11 @@ ol{margin:0;padding:0;list-style:none}
 
 <section class="section" id="expert-session" aria-labelledby="es-title">
   <div class="wrap ax es">
-    <div class="es-pic" data-rv><img src="https://cdn.sanity.io/images/hxxe4r0k/production/ff5e82b78ffa05761ac30232c9b3fe43e6ed3219-6000x4000.png?w=800&amp;q=70&amp;fit=max&amp;fm=webp" width="800" height="533" loading="lazy" decoding="async" alt="Hands resting on a table with a Millionaire Migrant folder and box"></div>
+    <h2 id="es-title" data-rv>Private Expert Session</h2>
     <div class="es-copy" data-rv>
-      <h2 id="es-title">Private Expert Session</h2>
       <p>Need a specific answer, or quick advice? Book a Private Expert Session and speak to one of our experts about tax, immigration, visas, real estate, offshore banking and more.</p>
       <p>If you’d rather talk through your strategy more broadly, you can book a call directly with Jeremy Savory, our CEO and founder.</p>
-      <a class="btn btn-dark" href="services/consultancy.html">Book your session <svg class="arw" aria-hidden="true"><use href="#arw"/></svg></a>
+      <a class="btn btn-dark" href="services/consultancy.html">Book an Expert Session <svg class="arw" aria-hidden="true"><use href="#arw"/></svg></a>
     </div>
   </div>
 </section>
@@ -403,7 +412,6 @@ ol{margin:0;padding:0;list-style:none}
     <div class="ax is-top">
       <div class="is-left" data-rv>
         <h2 id="is-title">Individual services</h2>
-        <div class="is-pic"><img src="https://cdn.sanity.io/images/hxxe4r0k/production/7e0bf3262a39cfc9754ad77dd883b0f5fbfb2d51-2783x1855.png?w=800&amp;q=70&amp;fit=max&amp;fm=webp" width="800" height="533" loading="lazy" decoding="async" alt="Two passports held above a café table"></div>
       </div>
       <div class="is-copy" data-rv>
         <p class="lead">If you need one service on its own, such as a second citizenship, a golden visa or a new tax residency, we deliver it through our sister company, <strong>Savory &amp; Partners</strong>.</p>
@@ -426,7 +434,7 @@ ol{margin:0;padding:0;list-style:none}
     <div class="ax q-mid" data-rv>
       <p>Tell us about your goals and where you stand today, then choose a time that suits you. We’ll confirm whether the Blueprint or a single service fits you, so you know exactly what comes next.</p>
       <div class="btns">
-        <a class="btn btn-dark" href="services/blueprint.html#form">Build your Blueprint <svg class="arw" aria-hidden="true"><use href="#arw"/></svg></a>
+        <a class="btn btn-dark" href="services/blueprint.html#form">Start your Blueprint <svg class="arw" aria-hidden="true"><use href="#arw"/></svg></a>
       </div>
     </div>
   </div>
@@ -594,6 +602,17 @@ ol{margin:0;padding:0;list-style:none}
     else addEventListener('load', startFilm);
   }
 
+  /* WhatsApp button: steps aside when it would cover a form, the footer or a row's arrows */
+  var wa = d.querySelector('.wa-float'), waOver = d.querySelectorAll('form, .foot, .q-nav, .cs-nav');
+  if (wa && waOver.length && 'IntersectionObserver' in window) {
+    var waSeen = new Set();
+    var waIo = new IntersectionObserver(function (entries) {
+      entries.forEach(function (en) { if (en.isIntersecting) waSeen.add(en.target); else waSeen.delete(en.target); });
+      wa.classList.toggle('away', waSeen.size > 0);
+    });
+    waOver.forEach(function (el) { waIo.observe(el); });
+  }
+
   /* newsletter form: HubSpot loads only when the footer comes near */
   var nl = d.getElementById('hubspot-form-173f77d0-c314-4e54-ae84-ba967c6cd453');
   function loadForm() {
@@ -601,7 +620,18 @@ ol{margin:0;padding:0;list-style:none}
     var s = d.createElement('script');
     s.src = 'https://js-eu1.hsforms.net/forms/embed/v2.js'; s.charset = 'utf-8';
     s.onload = function () {
-      if (window.hbspt) hbspt.forms.create({ region: 'eu1', portalId: '146356474', formId: '173f77d0-c314-4e54-ae84-ba967c6cd453', target: '#hubspot-form-173f77d0-c314-4e54-ae84-ba967c6cd453' });
+      if (window.hbspt) hbspt.forms.create({ region: 'eu1', portalId: '146356474', formId: '173f77d0-c314-4e54-ae84-ba967c6cd453', target: '#hubspot-form-173f77d0-c314-4e54-ae84-ba967c6cd453', onFormReady: function () {
+        /* HubSpot's frame brings its own font; give it this site's */
+        var frame = nl.querySelector('iframe'), doc = frame && frame.contentDocument;
+        if (!doc) return;
+        var faces = '';
+        Array.prototype.forEach.call(d.styleSheets, function (sheet) {
+          try { Array.prototype.forEach.call(sheet.cssRules, function (r) { if (r.type === 5 && /Public Sans/.test(r.cssText)) faces += r.cssText; }); } catch (e) {}
+        });
+        var st = doc.createElement('style');
+        st.textContent = faces + 'html,body,form,label,input,button,select,textarea,p,span,a,div,legend{font-family:"Public Sans",Arial,sans-serif!important}';
+        doc.head.appendChild(st);
+      } });
     };
     d.body.appendChild(s);
   }
